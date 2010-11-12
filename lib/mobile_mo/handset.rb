@@ -20,5 +20,17 @@ module MobileMo
     def softbank?
       /^(SoftBank|Vodafone)/ =~ @request.user_agent
     end
+
+    def cookies?
+      !pre_2_dot_0_docomo_device?
+    end
+
+    def pre_2_dot_0_docomo_device?
+      if /docomo(.*\((.*;)?c(\d+)\;)?/i =~ @request.user_agent
+        $3.to_i < 500
+      else
+        false
+      end
+    end
   end
 end
