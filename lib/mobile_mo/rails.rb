@@ -9,11 +9,6 @@ module MobileMo::Rails
   XHTML_CONTENT_TYPE_UA_PATTERNS = [/^DoCoMo\/(\d)/]
 
   module ClassMethods
-    # Add this to one of your controllers to use MobileFu.
-    #
-    #    class ApplicationController < ActionController::Base
-    #      has_mobile_mo
-    #    end
     def has_mobile_mo
       include MobileMo::Rails::InstanceMethods
 
