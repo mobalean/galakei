@@ -14,6 +14,11 @@ class HandsetTest < Test::Unit::TestCase
     assert handset('DoCoMo/1.0').set_xhtml_content_type?
   end
 
+  def test_docomo
+    assert !handset('Mozilla').docomo?
+    assert handset('DoCoMo/1.0').docomo?
+  end
+
   private
 
   def handset(user_agent)

@@ -10,5 +10,9 @@ module MobileMo
     def set_xhtml_content_type?
       XHTML_CONTENT_TYPE_UA_PATTERNS.any? {|p| p =~ @request.user_agent }
     end
+
+    def docomo?
+      /DoCoMo/i =~ @request.user_agent
+    end
   end
 end
