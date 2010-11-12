@@ -11,6 +11,7 @@ module MobileMo::Rails
 
       helper_method :is_mobile_device?
       helper_method :mobile_subscriber_id
+      helper_method :handset
 
       before_filter :append_mobile_views
       before_filter :set_xhtml_header
@@ -39,7 +40,7 @@ module MobileMo::Rails
     end
 
     def handset
-      @handset ||= Handset.new(request)
+      @handset ||= MobileMo::Handset.new(request)
     end
   end
 end
