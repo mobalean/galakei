@@ -26,10 +26,6 @@ module MobileMo::Rails
       @is_mobile_device ||= MobileMo::Rails::MOBILE_USER_AGENTS =~ request.user_agent.to_s.downcase
     end
 
-    def mobile_subscriber_id
-      request.env["HTTP_X_UP_SUBNO"] || request.env["HTTP_X_JPHONE_UID"]
-    end
-
     private
 
     def append_mobile_views
