@@ -5,9 +5,6 @@ module MobileMo::Rails
     'telit|tsm|j2me|sprint|vodafone|docomo|kddi|softbank|pdxgw|j-phone|astel|minimo|plucker|netfront|xiino|' +
     'mot-v|mot-e|portalmmm|sagem|sie-s|sie-m')
 
-  # docomo requires "application/xhtml+xml" content type
-  XHTML_CONTENT_TYPE_UA_PATTERNS = [/^DoCoMo\/(\d)/]
-
   module ClassMethods
     def has_mobile_mo
       include MobileMo::Rails::InstanceMethods
@@ -39,15 +36,14 @@ module MobileMo::Rails
       prepend_view_path("#{RAILS_ROOT}/app/views.mobile") if is_mobile_device?
     end
 
-    def set_xhtml_content_type?
-      ua = request.env["HTTP_USER_AGENT"]
-      MobileMo::Rails::XHTML_CONTENT_TYPE_UA_PATTERNS.any? {|p| p =~ ua }
-    end
-
     def set_xhtml_header
-      if is_mobile_device? && set_xhtml_content_type?
+      if is_mobile_device? && handset.set_xhtml_content_type?
         headers['Content-type'] = 'application/xhtml+xml'
       end
+    end
+
+    def handset
+      @handset ||= Handset.new(request)
     end
   end
 end
