@@ -10,7 +10,13 @@ class HandsetTest < Test::Unit::TestCase
   end
 
   def test_set_xhtml_content_type
-    assert !MobileMo::Handset.new(MockRequest.new('Mozilla')).set_xhtml_content_type?
-    assert MobileMo::Handset.new(MockRequest.new('DoCoMo/1.0')).set_xhtml_content_type?
+    assert !handset('Mozilla').set_xhtml_content_type?
+    assert handset('DoCoMo/1.0').set_xhtml_content_type?
+  end
+
+  private
+
+  def handset(user_agent)
+    MobileMo::Handset.new(MockRequest.new(user_agent))
   end
 end
