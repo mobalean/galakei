@@ -35,7 +35,7 @@ module MobileMo::Rails
 
     def set_xhtml_header
       if is_mobile_device? && handset.set_xhtml_content_type?
-        headers['Content-type'] = 'application/xhtml+xml'
+        response.content_type = 'application/xhtml+xml'
       end
     end
 
