@@ -44,5 +44,3 @@ module MobileMo::Rails
     end
   end
 end
-
-ActionController::Base.send(:extend, MobileMo::Rails::ClassMethods)
