@@ -6,7 +6,7 @@ module MobileMo::Rails
     'mot-v|mot-e|portalmmm|sagem|sie-s|sie-m')
 
   module ClassMethods
-    def has_mobile_mo
+    def has_mobile_mo(options = {})
       include MobileMo::Rails::InstanceMethods
 
       helper_method :is_mobile_device?
@@ -15,6 +15,7 @@ module MobileMo::Rails
 
       before_filter :append_mobile_views
       before_filter :set_xhtml_header
+      include MobileMo::SessionIdParameter if options[:session_id_parameter]
     end
   end
 
