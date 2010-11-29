@@ -31,7 +31,7 @@ module MobileMo::Rails
     private
 
     def append_mobile_views
-      prepend_view_path("#{RAILS_ROOT}/app/views.mobile") if is_mobile_device?
+      prepend_view_path(Rails.root('app','views','mobile')) if is_mobile_device?
     end
 
     def set_xhtml_header
