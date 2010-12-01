@@ -8,7 +8,9 @@ module MobileMo::SessionIdParameter
 
   def set_session_id_parameter
     if !handset.cookies? && session
+      session[:_dummy_param_to_force_session_init] = nil
       key = Rails.application.config.session_options[:key]
+      logger.debug("adding session param '#{key}' to default_url_options")
       default_url_options[key] = request.session_options[:id]
     end
   end
