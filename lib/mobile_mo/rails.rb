@@ -29,7 +29,7 @@ module MobileMo::Rails
     # Returns either true or false depending on whether or not the user agent of
     # the device making the request is matched to a device in our regex.
     def is_mobile_device?
-      MobileMo::Rails::MOBILE_USER_AGENTS =~ request.user_agent.to_s.downcase
+      @is_mobile_device ||= MobileMo::Rails::MOBILE_USER_AGENTS =~ request.user_agent.to_s.downcase
     end
 
     def device_needs_xhtml_content_type?
@@ -57,9 +57,8 @@ module MobileMo::Rails
       Haml::Template.options[:format] = old_format
     end
 
-    # TODO cache
     def handset
-      MobileMo::Handset.new(request)
+      @handset ||= MobileMo::Handset.new(request)
     end
   end
 end
