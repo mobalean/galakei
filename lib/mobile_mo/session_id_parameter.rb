@@ -7,7 +7,7 @@ module MobileMo::SessionIdParameter
   protected # the following methods are available within the controller
 
   def device_needs_session_param_in_url?
-    !handset.cookies? && session
+    is_mobile_device? && !handset.cookies? && session
   end
 
   def set_session_id_parameter

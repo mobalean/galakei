@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = "mobile_mo"
-  s.version      = '0.2.2'
+  s.version      = '0.2.3'
   s.platform     = Gem::Platform::RUBY
   s.authors      = ["Paul McMahon", "Michael Reinsch"]
   s.email        = "info@mobalean.com"
