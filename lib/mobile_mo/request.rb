@@ -1,9 +1,5 @@
 module MobileMo
   module Request
-    def set_xhtml_content_type?
-      docomo?
-    end
-
     def docomo?
       /DoCoMo/i =~ user_agent
     end

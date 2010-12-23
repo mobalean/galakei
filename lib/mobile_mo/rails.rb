@@ -25,7 +25,7 @@ module MobileMo::Rails
     end
 
     def device_needs_xhtml_content_type?
-      is_mobile_device? && request.set_xhtml_content_type?
+      request.docomo?
     end
 
     private

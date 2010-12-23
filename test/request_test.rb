@@ -10,11 +10,6 @@ class RequestTest < Test::Unit::TestCase
     end
   end
 
-  def test_set_xhtml_content_type
-    assert !request('Mozilla').set_xhtml_content_type?
-    assert request('DoCoMo/1.0').set_xhtml_content_type?
-  end
-
   def test_docomo
     assert !request('Mozilla').docomo?
     assert request('DoCoMo/1.0').docomo?
