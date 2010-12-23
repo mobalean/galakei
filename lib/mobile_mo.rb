@@ -1,6 +1,6 @@
 module MobileMo; end
 
-require "mobile_mo/rails"
+require "mobile_mo/action_controller/base"
 require "mobile_mo/railtie"
 require "mobile_mo/request"
 require "mobile_mo/email"
