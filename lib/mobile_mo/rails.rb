@@ -5,7 +5,6 @@ module MobileMo::Rails
       include MobileMo::Rails::InstanceMethods
 
       helper_method :is_mobile_device?
-      helper_method :mobile_subscriber_id
 
       before_filter :append_mobile_views, :if => :is_mobile_device?
       before_filter :set_xhtml_header, :if => :device_needs_xhtml_content_type?
