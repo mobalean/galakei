@@ -11,7 +11,6 @@ module MobileMo::Rails
 
       helper_method :is_mobile_device?
       helper_method :mobile_subscriber_id
-      helper_method :handset
 
       before_filter :append_mobile_views, :if => :is_mobile_device?
       before_filter :set_xhtml_header, :if => :device_needs_xhtml_content_type?
@@ -33,7 +32,7 @@ module MobileMo::Rails
     end
 
     def device_needs_xhtml_content_type?
-      is_mobile_device? && handset.set_xhtml_content_type?
+      is_mobile_device? && request.set_xhtml_content_type?
     end
 
     private
@@ -55,10 +54,6 @@ module MobileMo::Rails
       yield
     ensure
       Haml::Template.options[:format] = old_format
-    end
-
-    def handset
-      @handset ||= MobileMo::Handset.new(request)
     end
   end
 end
