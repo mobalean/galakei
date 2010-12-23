@@ -31,6 +31,13 @@ class RequestTest < Test::Unit::TestCase
     assert request('SoftBank/1.0/812SHs/SHJ001').softbank?
   end
 
+  def test_is_mobile_device?
+    assert !request('Mozilla').is_mobile_device?
+    assert request('Vodafone/1.0/V903SH/SHJ001').is_mobile_device?
+    assert request('SoftBank/1.0/812SHs/SHJ001').is_mobile_device?
+    assert request('DoCoMo/1.0').is_mobile_device?
+  end
+
   private
 
   def request(user_agent)

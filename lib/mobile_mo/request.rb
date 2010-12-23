@@ -28,5 +28,9 @@ module MobileMo
         false
       end
     end
+
+    def is_mobile_device?
+      docomo? || au? || softbank?
+    end
   end
 end
