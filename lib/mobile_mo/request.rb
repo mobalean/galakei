@@ -14,10 +14,10 @@ module MobileMo
     end
 
     def cookies?
-      !pre_2_dot_0_docomo_device?
+      !imode_browser_1_0?
     end
 
-    def pre_2_dot_0_docomo_device?
+    def imode_browser_1_0?
       if /docomo(.*\((.*;)?c(\d+)\;)?/i =~ user_agent
         $3.to_i < 500
       else
