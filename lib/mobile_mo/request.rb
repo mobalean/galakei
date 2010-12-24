@@ -1,3 +1,5 @@
+require "rack/request"
+
 module MobileMo
   module Request
     def docomo?
@@ -30,3 +32,5 @@ module MobileMo
     end
   end
 end
+
+Rack::Request.send :include, MobileMo::Request

@@ -1,4 +1,4 @@
-require "mobile_mo/railtie"
+require 'mobile_mo/railtie' if defined?(Rails)
 
 module MobileMo
   autoload :Request, "mobile_mo/request"

@@ -9,8 +9,8 @@ module MobileMo
         include MobileMo::ActionController::SessionIdParameter if app.config.mobile_mo.session_id_parameter
       end
     end
-    initializer "mobile_mo.include.request" do
-      ActionDispatch::Request.send :include, MobileMo::Request
+    initializer "mobile_mo.middleware" do |app|
+      app.middleware.use MobileMo::Middleware::ContentType
     end
   end
 end

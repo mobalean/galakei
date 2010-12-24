@@ -1,9 +1,8 @@
 require 'rake'
-require 'rake/testtask'
+require 'rubygems'
+require 'rspec/core/rake_task'
 
-task :default => :test
-
-Rake::TestTask.new(:test) do |t|
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+task :default => :spec
+RSpec::Core::RakeTask.new do |t|
+  t.ruby_opts = "-w"
 end
