@@ -21,6 +21,12 @@ describe MobileMo::Middleware::ContentType do
         @app.call(@env)[1].should == {"Content-Type"=>"image/png"}
       end
     end
+    describe "304 response" do
+      before { @app = MobileMo::Middleware::ContentType.new(mock("app", :call => [ 304, {}, :response ])) }
+      it("should not change content type") do
+        @app.call(@env)[1].should == {}
+      end
+    end
   end
 
   describe "from AU W51SH" do

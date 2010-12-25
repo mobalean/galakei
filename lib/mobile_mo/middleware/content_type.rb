@@ -13,7 +13,9 @@ module MobileMo
         request = Rack::Request.new(env)
         if request.docomo?
           status, headers, response = @app.call(env)
-          headers["Content-Type"].gsub!('text/html', 'application/xhtml+xml')
+          if headers["Content-Type"]
+            headers["Content-Type"].gsub!('text/html', 'application/xhtml+xml') 
+          end
           [status, headers, response]
         else
           @app.call(env)
