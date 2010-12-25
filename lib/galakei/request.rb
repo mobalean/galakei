@@ -1,6 +1,6 @@
 require "rack/request"
 
-module MobileMo
+module Galakei
   module Request
     def docomo?
       /DoCoMo/i =~ user_agent
@@ -27,10 +27,10 @@ module MobileMo
       end
     end
 
-    def is_mobile_device?
+    def galakei?
       docomo? || au? || softbank?
     end
   end
 end
 
-Rack::Request.send :include, MobileMo::Request
+Rack::Request.send :include, Galakei::Request

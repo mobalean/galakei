@@ -1,6 +1,6 @@
 $:.unshift File.expand_path('../../lib', __FILE__)
 
-require 'mobile_mo'
+require 'galakei'
 
 def env_for(device_name)
   user_agent = { 

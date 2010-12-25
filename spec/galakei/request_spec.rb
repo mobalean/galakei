@@ -10,17 +10,17 @@ require 'spec_helper'
     it("should be #{carrier}?") do
       @request.should send("be_#{carrier}")
     end
-    it("should be mobile") { @request.should be_is_mobile_device }
+    it("should be galakei") { @request.should be_galakei }
   end
 end
 
-describe MobileMo::Request do
+describe Galakei::Request do
   describe "from Firefox" do
     before { @request = Rack::Request.new(env_for("Firefox")) }
     it_should_behave_like "non-au devices"
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "non-softbank devices"
-    it("should not be mobile") { @request.should_not be_is_mobile_device }
+    it("should not be galakei") { @request.should_not be_galakei }
   end
 
   describe "from Docomo SH-06A" do

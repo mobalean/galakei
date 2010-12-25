@@ -1,6 +1,6 @@
-module MobileMo::Email
+module Galakei::Email
 
-  MOBILE_EMAIL_ADDRESS_PATTERNS = [
+  GALAKEI_EMAIL_ADDRESS_PATTERNS = [
     /^.+@(.+\.)?pdx\.ne\.jp$/,
     /^.+@ezweb\.ne\.jp$/,
     /^.+@(?:softbank\.ne\.jp|disney\.ne\.jp)$/,
@@ -9,7 +9,7 @@ module MobileMo::Email
     /^.+@emnet\.ne\.jp$/,
     /^.+@docomo\.ne\.jp$/ ]
 
-  def self.mobile_email_address?(email)
-    MOBILE_EMAIL_ADDRESS_PATTERNS.any?{|p| p =~ email }
+  def self.galakei_email_address?(email)
+    GALAKEI_EMAIL_ADDRESS_PATTERNS.any?{|p| p =~ email }
   end
 end

@@ -1,4 +1,4 @@
-module MobileMo
+module Galakei
   module ActionController
     module SessionIdParameter
       def self.included(klass)
@@ -8,7 +8,7 @@ module MobileMo
       protected # the following methods are available within the controller
 
       def device_needs_session_param_in_url?
-        is_mobile_device? && !request.cookies? && session
+        galakei? && !request.cookies? && session
       end
 
       def set_session_id_parameter
