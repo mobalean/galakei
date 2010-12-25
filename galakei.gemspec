@@ -5,10 +5,10 @@ Gem::Specification.new do |s|
   s.authors      = ["Paul McMahon", "Michael Reinsch"]
   s.email        = "info@mobalean.com"
   s.homepage     = "http://www.mobalean.com"
-  s.summary      = "Handling for Japanese feature phones."
+  s.summary      = "Japanese feature phones support"
   s.description  = "Japanese feature phones (a.k.a., keitai, galakei) have a number of restrictions over normal web browsers.  This library adds support for them"
 
-  s.files        = Dir.glob("lib/**/*")
+  s.files = Dir["LICENSE", "README.md", "lib/**/*"]
   s.require_path = 'lib'
   s.rubyforge_project = '[none]'
 
