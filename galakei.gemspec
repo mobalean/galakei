@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.rubyforge_project = '[none]'
 
-  s.add_dependency 'actionpack'
-  s.add_dependency 'rack'
+  s.add_dependency 'actionpack', '>= 3.0.3'
+  s.add_dependency 'rack', '>= 1.2.1'
 end
 
