@@ -18,10 +18,6 @@ module MobileMo
         logger.debug("appending mobile views")
         prepend_view_path(::Rails.root.join('app','views.mobile'))
       end
-
-      def set_xhtml_header
-        logger.debug("setting xhtml header")
-      end
     end
   end
 end
