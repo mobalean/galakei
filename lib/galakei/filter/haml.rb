@@ -1,14 +1,14 @@
 module Galakei
-  module ActionController
+  module Filter
     # Set template format to xhtml.  This method of setting the format is rails
     # specific so leave a filter
-    module Haml
-      def self.included(klass)
-        klass.around_filter :switch_haml_to_xhtml, :if => :galakei?
+    class Haml
+      def self.inject(klass)
+        klass.around_filter self.new, :if => :galakei?
       end
 
-      def switch_haml_to_xhtml
-        logger.debug("switching haml to xhtml")
+      def around(controller)
+        controller.logger.debug("switching haml to xhtml")
         old_format = ::Haml::Template.options[:format] 
         ::Haml::Template.options[:format] = :xhtml
         yield
