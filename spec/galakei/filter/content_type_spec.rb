@@ -14,26 +14,26 @@ describe Galakei::Filter::ContentType do
     describe "content type is text/html" do
       before { @response.should_receive(:content_type).and_return("text/html") }
       it("should require xhtml content type") do
-        @filter.should be_after_condition
+        @filter.should be_condition
       end
     end
     describe "content type is image/png" do
       before { @response.should_receive(:content_type).and_return("image/png") }
       it("should not change content type") do
-        @filter.should_not be_after_condition
+        @filter.should_not be_condition
       end
     end
     describe "304 response" do
       before { @response.should_receive(:content_type).and_return(nil) }
       it("should not change content type") do
-        @filter.should_not be_after_condition
+        @filter.should_not be_condition
       end
     end
   end
   describe "from non docomo" do
     before { @request.should_receive(:docomo?).and_return(false) }
     it("should not change content type") do
-      @filter.should_not be_after_condition
+      @filter.should_not be_condition
     end
   end
 end
