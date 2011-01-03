@@ -3,9 +3,7 @@ require 'galakei/request'
 
 module Galakei
   autoload :Email, "galakei/email"
-  module ActionController
-    autoload :Helper, "galakei/action_controller/helper"
-  end
+  autoload :HelperMethods, "galakei/helper_methods"
   module Filter
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
