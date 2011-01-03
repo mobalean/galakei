@@ -4,7 +4,8 @@ require 'galakei/request'
 module Galakei
   autoload :Email, "galakei/email"
   module ActionController
-    autoload :Base, "galakei/action_controller/base"
+    autoload :Helper, "galakei/action_controller/helper"
+    autoload :Views, "galakei/action_controller/views"
     autoload :Haml, "galakei/action_controller/haml"
     autoload :SessionIdParameter, "galakei/action_controller/session_id_parameter"
   end
