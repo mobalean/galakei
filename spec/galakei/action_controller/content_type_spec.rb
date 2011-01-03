@@ -1,12 +1,9 @@
 require 'spec_helper'
-require 'action_controller'
 
-describe Galakei::ActionController::ContentType do
+describe Galakei::Filter::ContentType do
   before :each do
-    klass = Class.new(ActionController::Base) do
-      include Galakei::ActionController::ContentType
-    end
-    @controller = klass.new
+    @filter = Galakei::Filter::ContentType.new
+    @controller = mock("controller")
     @request = mock("request")
     @response = mock("response")
     @controller.stub!(:request).and_return(@request)
@@ -17,26 +14,26 @@ describe Galakei::ActionController::ContentType do
     describe "content type is text/html" do
       before { @response.should_receive(:content_type).and_return("text/html") }
       it("should require xhtml content type") do
-        @controller.should be_xhtml_content_type_required
+        @filter.should be_after_condition(@controller)
       end
     end
     describe "content type is image/png" do
       before { @response.should_receive(:content_type).and_return("image/png") }
       it("should not change content type") do
-        @controller.should_not be_xhtml_content_type_required
+        @filter.should_not be_after_condition(@controller)
       end
     end
     describe "304 response" do
       before { @response.should_receive(:content_type).and_return(nil) }
       it("should not change content type") do
-        @controller.should_not be_xhtml_content_type_required
+        @filter.should_not be_after_condition(@controller)
       end
     end
   end
   describe "from non docomo" do
     before { @request.should_receive(:docomo?).and_return(false) }
     it("should not change content type") do
-      @controller.should_not be_xhtml_content_type_required
+      @filter.should_not be_after_condition(@controller)
     end
   end
 end

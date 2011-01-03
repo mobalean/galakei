@@ -8,6 +8,8 @@ module Galakei
     autoload :Views, "galakei/action_controller/views"
     autoload :Haml, "galakei/action_controller/haml"
     autoload :SessionIdParameter, "galakei/action_controller/session_id_parameter"
-    autoload :ContentType, "galakei/action_controller/content_type"
+  end
+  module Filter
+    autoload :ContentType, "galakei/filter/content_type"
   end
 end

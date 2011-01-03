@@ -6,7 +6,7 @@ module Galakei
       ActiveSupport.on_load :action_controller do
         include Galakei::ActionController::Helper
         include Galakei::ActionController::Views
-        include Galakei::ActionController::ContentType
+        Galakei::Filter::ContentType.inject(self)
         include Galakei::ActionController::Haml if defined?(Haml)
         include Galakei::ActionController::SessionIdParameter if app.config.galakei.session_id_parameter
       end
