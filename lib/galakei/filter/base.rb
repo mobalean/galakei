@@ -3,21 +3,16 @@ module Galakei
     class Base
       attr_accessor :controller
 
-      def self.inject(klass)
-        this_class = self
-        klass.after_filter self, :if => lambda {|c| this_class.after_condition?(c) }
-      end
-
-      def self.after(controller)
+      def self.condition?(controller)
         @instance ||= self.new
         @instance.controller = controller
-        @instance.after
+        @instance.condition?
       end
 
-      def self.after_condition?(controller)
+      def self.filter(controller, &block)
         @instance ||= self.new
         @instance.controller = controller
-        @instance.after_condition?
+        @instance.filter(&block)
       end
 
       def method_missing(m, *args)
