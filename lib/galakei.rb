@@ -5,12 +5,12 @@ module Galakei
   autoload :Email, "galakei/email"
   module ActionController
     autoload :Helper, "galakei/action_controller/helper"
-    autoload :SessionIdParameter, "galakei/action_controller/session_id_parameter"
   end
   module Filter
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
     autoload :Haml, "galakei/filter/haml"
     autoload :Views, "galakei/filter/views"
+    autoload :SessionIdParameter, "galakei/filter/session_id_parameter"
   end
 end

@@ -8,7 +8,7 @@ module Galakei
         Galakei::Filter::Views.inject(self)
         Galakei::Filter::ContentType.inject(self)
         Galakei::Filter::Haml.inject(self) if defined?(Haml)
-        include Galakei::ActionController::SessionIdParameter if app.config.galakei.session_id_parameter
+        Galakei::Filter::SessionIdParameter.inject(self) if app.config.galakei.session_id_parameter
       end
     end
   end
