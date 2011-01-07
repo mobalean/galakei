@@ -1,6 +1,6 @@
 # Galakei: Japanese feature phone support
 
-Japanese feature phones (a.k.a., keitai, galakei) have a number of restrictions over normal web browsers.  This library adds support for them.
+[Japanese feature phones](http://www.mobalean.com/en/keitai_web_technology_guide) (a.k.a., keitai, galakei) have a number of restrictions over normal web browsers.  This library adds support for them.
 
 ### Goals
 
