@@ -1,4 +1,7 @@
-require 'galakei/railtie' if defined?(Rails)
+if defined?(Rails)
+  require 'galakei/railtie'
+  require 'docomo_css/railtie'
+end
 require 'galakei/request'
 
 module Galakei

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = "galakei"
-  s.version      = '0.0.1'
+  s.version      = '0.1.0'
   s.platform     = Gem::Platform::RUBY
   s.authors      = ["Paul McMahon", "Michael Reinsch"]
   s.email        = "info@mobalean.com"
@@ -14,5 +14,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'actionpack', '>= 3.0.3'
   s.add_dependency 'rack', '>= 1.2.1'
+  s.add_dependency 'docomo_css', '~> 0.4.4'
 end
 
