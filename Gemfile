@@ -10,4 +10,6 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'haml'
+  gem 'css_parser'
+  gem 'fakeweb'
 end

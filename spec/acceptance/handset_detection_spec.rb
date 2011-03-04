@@ -19,7 +19,6 @@ class HandsetDetectionController < ApplicationController
   end
 end
 
-
 feature 'handset detection' do
   scenario 'for docomo', :driver => :docomo do
     visit '/handset_detection'

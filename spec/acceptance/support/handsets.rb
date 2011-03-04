@@ -13,6 +13,10 @@ Capybara.register_driver :docomo do |app|
   Capybara::Driver::RackTestWithUserAgent.new(app, "DoCoMo/2.0 P903i(c100;TB;W24H12)")
 end
 
+Capybara.register_driver :docomo_2_0 do |app|
+  Capybara::Driver::RackTestWithUserAgent.new(app, "DoCoMo/2.0 SH06A3(c500;TB;W24H14)")
+end
+
 Capybara.register_driver :au do |app|
   Capybara::Driver::RackTestWithUserAgent.new(app, "KDDI-CA32 UP.Browser/6.2.0.7.3.129 (GUI) MMP/2.0")
 end

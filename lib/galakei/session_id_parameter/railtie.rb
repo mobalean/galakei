@@ -1,5 +1,3 @@
-require 'docomo_css'
-
 module Galakei
   module SessionIdParameter
     class Railtie < Rails::Railtie

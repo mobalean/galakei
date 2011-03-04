@@ -7,10 +7,7 @@ end
 feature 'haml' do
   %w[softbank au docomo].each do |s|
     scenario "for #{s}", :driver => s.to_sym do
-      pending 'until switch from external docomo_css' if s == 'docomo'
       visit '/haml'
-      page.body.should include("<?xml version='1.0' encoding='utf-8' ?>")
-      page.body.should include('<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">') 
       page.body.should include('<br />')
       page.should have_css('br')
     end

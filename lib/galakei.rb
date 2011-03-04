@@ -1,9 +1,9 @@
 if defined?(Rails)
   require 'galakei/railtie'
   require 'galakei/use_rack_request_to_extract_sid'
-  require 'docomo_css/railtie'
 end
 require 'galakei/request'
+require 'galakei/docomo_css'
 
 module Galakei
   autoload :Email, "galakei/email"
