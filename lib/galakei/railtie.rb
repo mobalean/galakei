@@ -11,6 +11,9 @@ module Galakei
         filters << :SessionIdParameter if app.config.galakei.session_id_parameter
         filters.each {|f| Galakei::Filter.const_get(f).inject(self) }
       end
+      ActiveSupport.on_load :action_view do
+        include Galakei::InputMode
+      end
     end
   end
 end

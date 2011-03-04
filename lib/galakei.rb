@@ -7,6 +7,7 @@ require 'galakei/request'
 module Galakei
   autoload :Email, "galakei/email"
   autoload :HelperMethods, "galakei/helper_methods"
+  autoload :InputMode, "galakei/input_mode"
   module Filter
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
