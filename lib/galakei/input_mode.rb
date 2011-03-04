@@ -41,7 +41,7 @@ module Galakei
           else
             options[:istyle] = inputmode[:istyle]
             options[:mode] = inputmode[:mode]
-            options[:style] ||= %Q{-wap-input-format:*#{inputmode[:other_wap_input_format]};}
+            options[:style] ||= %Q{-wap-input-format:*#{inputmode[:other_wap_input_format]}}
           end
         end
       end

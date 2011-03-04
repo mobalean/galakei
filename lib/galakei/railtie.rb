@@ -1,3 +1,5 @@
+require 'docomo_css'
+
 module Galakei
   class Railtie < Rails::Railtie
     config.galakei = ActiveSupport::OrderedOptions.new
