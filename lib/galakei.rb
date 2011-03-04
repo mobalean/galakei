@@ -10,6 +10,7 @@ module Galakei
   autoload :HelperMethods, "galakei/helper_methods"
   autoload :InputMode, "galakei/input_mode"
   autoload :EmojiTable, "galakei/emoji_table"
+  autoload :SessionIdParameterInForm, "galakei/session_id_parameter_in_form"
   module Filter
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
