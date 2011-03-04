@@ -9,6 +9,7 @@ module Galakei
   autoload :Email, "galakei/email"
   autoload :HelperMethods, "galakei/helper_methods"
   autoload :InputMode, "galakei/input_mode"
+  autoload :EmojiTable, "galakei/emoji_table"
   module Filter
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
