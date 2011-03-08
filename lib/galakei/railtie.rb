@@ -15,7 +15,7 @@ module Galakei
       end
       ActiveSupport.on_load :action_view do
         include Galakei::InputMode
-        include Galakei::SessionIdParameterInForm
+        include Galakei::SessionIdParameterInForm if app.config.galakei.session_id_parameter
       end
     end
   end
