@@ -9,8 +9,8 @@ class SessionsController < ApplicationController
     def persisted?; false end
   end
 
-  def new
-    session[:foo] = "bar"
+  def in_get_form
+    session[:previous_page] = "in_get_form"
     @search = Search.new
     render :inline => <<-EOD
       <%= form_for @search, :url => "/sessions", :html => { :method => :get } do |f| %>"
@@ -20,9 +20,16 @@ class SessionsController < ApplicationController
     EOD
   end
 
+  def link
+    session[:previous_page] = "link"
+    render :inline => <<-EOD
+      <%= link_to "Link", :action => :index %>
+    EOD
+  end
+
   def index
     render :inline => <<-EOD
-      Session Data: #{session[:foo]}
+      Session Data: #{session[:previous_page]}
       Session Param: #{params.key?(:_myapp_session)}
     EOD
   end
@@ -30,17 +37,35 @@ end
 
 
 feature 'session' do
-  scenario 'for au', :driver => :au do
-    visit '/sessions/new'
-    click_on "Create Search"
-    page.should have_content("Session Data: bar")
-    page.should have_content("Session Param: false")
+  context 'in get form' do
+    scenario 'for au', :driver => :au do
+      visit '/sessions/in_get_form'
+      click_on "Create Search"
+      page.should have_content("Session Data: in_get_form")
+      page.should have_content("Session Param: false")
+    end
+
+    scenario 'for docomo', :driver => :docomo do
+      visit '/sessions/in_get_form'
+      click_on "Create Search"
+      page.should have_content("Session Data: in_get_form")
+      page.should have_content("Session Param: true")
+    end
   end
 
-  scenario 'for docomo', :driver => :docomo do
-    visit '/sessions/new'
-    click_on "Create Search"
-    page.should have_content("Session Data: bar")
-    page.should have_content("Session Param: true")
+  context 'clicking link' do
+    scenario 'for au', :driver => :au do
+      visit '/sessions/link'
+      click_on "Link"
+      page.should have_content("Session Data: link")
+      page.should have_content("Session Param: false")
+    end
+
+    scenario 'for docomo', :driver => :docomo do
+      visit '/sessions/link'
+      click_on "Link"
+      page.should have_content("Session Data: link")
+      page.should have_content("Session Param: true")
+    end
   end
 end

@@ -1,8 +1,4 @@
-class Galakei::Filter::SessionIdParameter < Galakei::Filter::Base
-  def self.inject(klass)
-    klass.before_filter self
-  end
-
+class Galakei::SessionIdParameter::InUrl < Galakei::Filter::Base
   def filter
     key = ::Rails.application.config.session_options[:key]
     if device_needs_session_param_in_url?

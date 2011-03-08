@@ -18,4 +18,8 @@ module Galakei
     autoload :Views, "galakei/filter/views"
     autoload :SessionIdParameter, "galakei/filter/session_id_parameter"
   end
+  module SessionIdParameter
+    autoload :InForm, "galakei/session_id_parameter/in_form"
+    autoload :InUrl, "galakei/session_id_parameter/in_url"
+  end
 end
