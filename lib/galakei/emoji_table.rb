@@ -13,6 +13,7 @@ module Galakei
       :alarm_clock => %w[23F0 E6BA E594 E02D],
       :four_leaf_clover => %w[1F340 E741 E513 E110],
       :warning_sign => %w[26A0 E737 E481 E252],
+      :winking_face => %w[1F609 E729 E5C3 E405],
     }
     MAPPING.each do |k,v|
       MAPPING[k] = v.map {|s| "&#x#{s};".html_safe}
