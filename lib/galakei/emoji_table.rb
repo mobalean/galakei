@@ -14,6 +14,8 @@ module Galakei
       :four_leaf_clover => %w[1F340 E741 E513 E110],
       :warning_sign => %w[26A0 E737 E481 E252],
       :winking_face => %w[1F609 E729 E5C3 E405],
+      :smiling_face_with_open_mouth => %w[1F603 E6F0 E471 E057],
+      :house_building => %w[1F3E0 E663 E4AB E036]
     }
     MAPPING.each do |k,v|
       MAPPING[k] = v.map {|s| "&#x#{s};".html_safe}
