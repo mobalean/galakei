@@ -2,6 +2,7 @@ require 'rails'
 require 'active_record'
 require 'action_controller/railtie'
 require 'action_view/railtie'
+require 'haml'
 require 'galakei/railtie'
 
 # database

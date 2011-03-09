@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   def in_get_form
     session[:previous_page] = "in_get_form"
     @search = Search.new
-    render :inline => <<-EOD
+    render :layout => true, :inline => <<-EOD
       <%= form_for @search, :url => "/sessions", :html => { :method => :get } do |f| %>"
         <%= f.text_field :query %>
         <%= f.submit %>
@@ -22,13 +22,13 @@ class SessionsController < ApplicationController
 
   def link
     session[:previous_page] = "link"
-    render :inline => <<-EOD
+    render :layout => true, :inline => <<-EOD
       <%= link_to "Link", :action => :index %>
     EOD
   end
 
   def index
-    render :inline => <<-EOD
+    render :layout => true, :inline => <<-EOD
       Session Data: #{session[:previous_page]}
       Session Param: #{params.key?(:_myapp_session)}
     EOD

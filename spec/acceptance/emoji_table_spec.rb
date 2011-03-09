@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 class EmojiController < ApplicationController
   def index
-    render :inline => "<%= emoji_table.black_sun_with_rays %>"
+    render :inline => "<%= emoji_table.black_sun_with_rays %>", :layout => true
   end
 end
 

@@ -10,7 +10,7 @@ class InputModeController < ApplicationController
   end
   def index
     @user = User.new
-    render :inline => <<-EOD
+    render :layout => true, :inline => <<-EOD
       <%= form_for @user, :url => "/" do |f| %>"
         <%= f.text_field :hiragana, :inputmode => "hiragana" %>
         <%= f.text_field :hankaku_kana, :inputmode => "hankaku_kana" %>
