@@ -15,7 +15,10 @@ module Galakei
       :warning_sign => %w[26A0 E737 E481 E252],
       :winking_face => %w[1F609 E729 E5C3 E405],
       :smiling_face_with_open_mouth => %w[1F603 E6F0 E471 E057],
-      :house_building => %w[1F3E0 E663 E4AB E036]
+      :house_building => %w[1F3E0 E663 E4AB E036],
+      :copyright_sign => %w[00A9 E731 E558 E24E],
+      :registered_sign => %w[00AE E736 E559 E24F],
+      :trade_mark_sign => %w[2122 E732 E54E E537]
     }
     MAPPING.each do |k,v|
       MAPPING[k] = v.map {|s| "&#x#{s};".html_safe}
