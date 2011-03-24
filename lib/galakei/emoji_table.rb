@@ -19,6 +19,7 @@ module Galakei
       :smiling_face_with_open_mouth => %w[1F603 E6F0 E471 E057],
       :house_building => %w[1F3E0 E663 E4AB E036],
       :squared_new => %w[1F195 E6DD E5B5 E212],
+      :sparkle => %w[2747 E6FA E46C E32E],
       :copyright_sign => %w[00A9 E731 E558 E24E],
       :registered_sign => %w[00AE E736 E559 E24F],
       :trade_mark_sign => %w[2122 E732 E54E E537]
