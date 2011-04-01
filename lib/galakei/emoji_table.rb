@@ -1,3 +1,4 @@
+require 'active_support/core_ext/string/output_safety'
 module Galakei
   class EmojiTable
     MAPPING = { 
@@ -22,10 +23,24 @@ module Galakei
       :sparkle => %w[2747 E6FA E46C E32E],
       :copyright_sign => %w[00A9 E731 E558 E24E],
       :registered_sign => %w[00AE E736 E559 E24F],
-      :trade_mark_sign => %w[2122 E732 E54E E537]
+      :trade_mark_sign => %w[2122 E732 E54E E537],
+      :hash_key => [ %w[0023 20E3] ] + %w[E6E0 EB84 E210],
+      :keycap_1 => [ %w[0031 20E3] ] + %w[E6E2 E522 E21C],
+      :keycap_2 => [ %w[0032 20E3] ] + %w[E6E3 E523 E21D],
+      :keycap_3 => [ %w[0033 20E3] ] + %w[E6E4 E524 E21E],
+      :keycap_4 => [ %w[0034 20E3] ] + %w[E6E5 E525 E21F],
+      :keycap_5 => [ %w[0035 20E3] ] + %w[E6E6 E526 E220],
+      :keycap_6 => [ %w[0036 20E3] ] + %w[E6E7 E527 E221],
+      :keycap_7 => [ %w[0037 20E3] ] + %w[E6E8 E528 E222],
+      :keycap_8 => [ %w[0040 20E3] ] + %w[E6E9 E529 E223],
+      :keycap_9 => [ %w[0041 20E3] ] + %w[E6EA E52A E224],
+      :keycap_0 => [ %w[0030 20E3] ] + %w[E6EB E52C E225],
     }
     MAPPING.each do |k,v|
-      MAPPING[k] = v.map {|s| "&#x#{s};".html_safe}
+      MAPPING[k] = v.map do |a| 
+        a = [ a ] if a.is_a?(String)
+        a.map {|s| "&#x#{s};"}.join.html_safe
+      end
       define_method k do
         MAPPING[k][@carrier]
       end
