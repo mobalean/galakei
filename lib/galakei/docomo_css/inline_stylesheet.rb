@@ -18,6 +18,6 @@ class Galakei::DocomoCss::InlineStylesheet
       stylesheet = Galakei::DocomoCss::Stylesheet.new(parser)
       stylesheet.apply(doc)
     end
-    controller.response.body = doc.to_xhtml
+    controller.response.body = doc.to_xhtml(:encoding => doc.encoding)
   end
 end

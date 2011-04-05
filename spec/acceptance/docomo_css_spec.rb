@@ -20,7 +20,11 @@ class DocomoCssController < ApplicationController
   end
 
   def japanese
-    render :inline => "ほげ", :layout => true
+    html = <<-EOD
+      <% content_for(:head, stylesheet_link_tag("docomo_css/simple.css")) %>
+      ほげ
+    EOD
+    render :inline => html, :layout => true
   end
 end
 
@@ -44,8 +48,8 @@ feature 'inlining of css' do
     end
   end
 
-  scenario 'response contains japanese', :driver => :docomo do
+  scenario 'response contains non-ascii', :driver => :docomo do
     visit '/docomo_css/japanese'
-    page.should have_content("ほげ")
+    page.body.should include("ほげ")
   end
 end
