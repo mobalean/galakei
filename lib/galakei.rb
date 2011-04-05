@@ -4,6 +4,7 @@ if defined?(Rails)
 end
 require 'galakei/request'
 require 'galakei/docomo_css'
+require 'galakei/session_id_parameter'
 
 module Galakei
   autoload :Email, "galakei/email"
@@ -16,10 +17,5 @@ module Galakei
     autoload :ContentType, "galakei/filter/content_type"
     autoload :Haml, "galakei/filter/haml"
     autoload :Views, "galakei/filter/views"
-    autoload :SessionIdParameter, "galakei/filter/session_id_parameter"
-  end
-  module SessionIdParameter
-    autoload :InForm, "galakei/session_id_parameter/in_form"
-    autoload :InUrl, "galakei/session_id_parameter/in_url"
   end
 end
