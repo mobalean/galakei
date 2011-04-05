@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     render :layout => true, :inline => <<-EOD
       <%= form_for @search, :url => "/sessions", :html => { :method => :get } do |f| %>"
         <%= f.text_field :query %>
-        <%= f.submit %>
+        <%= f.submit "in_get_form" %>
       <% end %>
     EOD
   end
@@ -23,7 +23,21 @@ class SessionsController < ApplicationController
   def link
     session[:previous_page] = "link"
     render :layout => true, :inline => <<-EOD
-      <%= link_to "Link", :action => :index %>
+      <%= link_to "link", :action => :index %>
+    EOD
+  end
+
+  def button_to_get
+    session[:previous_page] = "button_to_get"
+    render :layout => true, :inline => <<-EOD
+      <%= button_to "button_to_get", {:action => :index}, :method => :get %>
+    EOD
+  end
+
+  def button_to_post
+    session[:previous_page] = "button_to_post"
+    render :layout => true, :inline => <<-EOD
+      <%= button_to "button_to_post", :action => :index %>
     EOD
   end
 
@@ -37,34 +51,36 @@ end
 
 
 feature 'session' do
-  context 'in get form' do
-    scenario 'for au', :driver => :au do
-      visit '/sessions/in_get_form'
-      click_on "Create Search"
-      page.should have_content("Session Data: in_get_form")
-      page.should have_content("Session Param: false")
-    end
+  %w[in_get_form link button_to_post].each do |s|
+    context s do
+      scenario 'for au', :driver => :au do
+        visit "/sessions/#{s}"
+        click_on s
+        page.should have_content("Session Data: #{s}")
+        page.should have_content("Session Param: false")
+      end
 
-    scenario 'for docomo', :driver => :docomo do
-      visit '/sessions/in_get_form'
-      click_on "Create Search"
-      page.should have_content("Session Data: in_get_form")
-      page.should have_content("Session Param: true")
+      scenario 'for docomo', :driver => :docomo do
+        visit "/sessions/#{s}"
+        click_on s
+        page.should have_content("Session Data: #{s}")
+        page.should have_content("Session Param: true")
+      end
     end
   end
-
-  context 'clicking link' do
+  context "button_to_get" do
     scenario 'for au', :driver => :au do
-      visit '/sessions/link'
-      click_on "Link"
-      page.should have_content("Session Data: link")
+      visit "/sessions/button_to_get"
+      click_on "button_to_get"
+      page.should have_content("Session Data: button_to_get")
       page.should have_content("Session Param: false")
     end
 
     scenario 'for docomo', :driver => :docomo do
-      visit '/sessions/link'
-      click_on "Link"
-      page.should have_content("Session Data: link")
+      visit "/sessions/button_to_get"
+      page.find('form input[name="_myapp_session"]')["value"].should_not be_blank
+      click_on "button_to_get"
+      page.should have_content("Session Data: button_to_get")
       page.should have_content("Session Param: true")
     end
   end
