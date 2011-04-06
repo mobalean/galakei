@@ -19,7 +19,6 @@ app.config.galakei.session_id_parameter = true
 app.initialize!
 
 app.routes.draw do
-  match '/secure/:controller/(:action)', :protocol => 'https://'
   match ':controller(/:action(/:id))'
 end
 class ApplicationController < ActionController::Base; end

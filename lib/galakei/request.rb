@@ -15,10 +15,6 @@ module Galakei
       /^(SoftBank|Vodafone)/ =~ user_agent
     end
 
-    def cookies?
-      !imode_browser_1_0?
-    end
-
     def imode_browser_1_0?
       if /docomo(.*\((.*;)?c(\d+)\;)?/i =~ user_agent
         $3.to_i < 500

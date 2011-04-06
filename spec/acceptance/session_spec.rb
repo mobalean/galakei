@@ -27,6 +27,18 @@ class SessionsController < ApplicationController
     EOD
   end
 
+  def secure_link
+    render :layout => true, :inline => <<-EOD
+      <%= link_to "secure_link", :action => :index, :protocol => "https://" %>
+    EOD
+  end
+
+  def insecure_link
+    render :layout => true, :inline => <<-EOD
+      <%= link_to "insecure_link", :action => :index, :protocol => "http://" %>
+    EOD
+  end
+
   def button_to_get
     session[:previous_page] = "button_to_get"
     render :layout => true, :inline => <<-EOD
@@ -87,5 +99,37 @@ feature 'session' do
         page.should have_content("Session Param: true")
       end
     end
+  end
+
+  scenario 'link https to https for au', :driver => :au do
+    visit "https://www.example.com/sessions/link"
+    click_on 'link'
+    page.should have_content("Session Param: false")
+  end
+
+  %w[au softbank].each do |s|
+    scenario "link http to https for #{s}", :driver => s.to_sym do
+      visit "http://www.example.com/sessions/secure_link"
+      click_on 'secure_link'
+      page.should have_content("Session Param: true")
+    end
+
+    scenario "link https to http for #{s}", :driver => s.to_sym do
+      visit "https://www.example.com/sessions/insecure_link"
+      click_on 'insecure_link'
+      page.should have_content("Session Param: true")
+    end
+  end
+
+  scenario 'link http to https for docomo_2_0', :driver => :docomo_2_0 do
+    visit "http://www.example.com/sessions/secure_link"
+    click_on 'secure_link'
+    page.should have_content("Session Param: false")
+  end
+
+  scenario 'link https to http for docomo_2_0', :driver => :docomo_2_0 do
+    visit "https://www.example.com/sessions/insecure_link"
+    click_on 'insecure_link'
+    page.should have_content("Session Param: false")
   end
 end
