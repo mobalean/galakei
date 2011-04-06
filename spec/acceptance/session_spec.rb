@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     session[:previous_page] = "in_get_form"
     @search = Search.new
     render :layout => true, :inline => <<-EOD
-      <%= form_for @search, :url => "/sessions", :html => { :method => :get } do |f| %>"
+      <%= form_for @search, :url => { :controller => :sessions }, :html => { :method => :get } do |f| %>"
         <%= f.text_field :query %>
         <%= f.submit "in_get_form" %>
       <% end %>
@@ -51,7 +51,7 @@ end
 
 
 feature 'session' do
-  %w[in_get_form link button_to_post].each do |s|
+  %w[link button_to_post].each do |s|
     context s do
       scenario 'for au', :driver => :au do
         visit "/sessions/#{s}"
@@ -68,20 +68,24 @@ feature 'session' do
       end
     end
   end
-  context "button_to_get" do
-    scenario 'for au', :driver => :au do
-      visit "/sessions/button_to_get"
-      click_on "button_to_get"
-      page.should have_content("Session Data: button_to_get")
-      page.should have_content("Session Param: false")
-    end
 
-    scenario 'for docomo', :driver => :docomo do
-      visit "/sessions/button_to_get"
-      page.find('form input[name="_myapp_session"]')["value"].should_not be_blank
-      click_on "button_to_get"
-      page.should have_content("Session Data: button_to_get")
-      page.should have_content("Session Param: true")
+  %w[in_get_form button_to_get].each do |s|
+    context s do
+      scenario 'for au', :driver => :au do
+        visit "/sessions/#{s}"
+        click_on s
+        page.should have_content("Session Data: #{s}")
+        page.should have_content("Session Param: false")
+      end
+
+      scenario 'for docomo', :driver => :docomo do
+        visit "/sessions/#{s}"
+        page.find('form')["action"].should == "/sessions"
+        page.find('form input[name="_myapp_session"]')["value"].should_not be_blank
+        click_on s
+        page.should have_content("Session Data: #{s}")
+        page.should have_content("Session Param: true")
+      end
     end
   end
 end

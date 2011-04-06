@@ -4,8 +4,8 @@ module Galakei
       config.galakei.session_id_parameter = false
       initializer "galakei.session_id_parameter" do |app|
         if app.config.galakei.session_id_parameter
-          ActiveSupport.on_load :action_controller do
-            before_filter Galakei::SessionIdParameter::InUrl
+          Rails.application.routes.url_helpers.class_eval do
+            include Galakei::SessionIdParameter::InUrl
           end
           ActiveSupport.on_load :action_view do
             include Galakei::SessionIdParameter::InForm

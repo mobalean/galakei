@@ -18,5 +18,8 @@ app.config.active_support.deprecation = :log
 app.config.galakei.session_id_parameter = true
 app.initialize!
 
-app.routes.draw { match ':controller(/:action(/:id))' }
+app.routes.draw do
+  match '/secure/:controller/(:action)', :protocol => 'https://'
+  match ':controller(/:action(/:id))'
+end
 class ApplicationController < ActionController::Base; end
