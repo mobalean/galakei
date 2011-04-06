@@ -59,6 +59,10 @@ class SessionsController < ApplicationController
       Session Param: #{params.key?(:_myapp_session)}
     EOD
   end
+
+  def session_generation
+    render :head => :ok
+  end
 end
 
 
@@ -131,5 +135,10 @@ feature 'session' do
     visit "https://www.example.com/sessions/insecure_link"
     click_on 'insecure_link'
     page.should have_content("Session Param: false")
+  end
+
+  scenario 'route generation in tests' do
+    # request is not available in this context
+    visit session_generation_path
   end
 end

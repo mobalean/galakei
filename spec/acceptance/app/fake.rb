@@ -19,6 +19,7 @@ app.config.galakei.session_id_parameter = true
 app.initialize!
 
 app.routes.draw do
+  match 'session_generation' => "sessions#session_generation"
   match ':controller(/:action(/:id))'
 end
 class ApplicationController < ActionController::Base; end

@@ -16,7 +16,7 @@ module Galakei::SessionIdParameter::InUrl
   private
 
   def inject_session_id_parameter?(options)
-    return false unless options.is_a?(Hash)
+    return false unless options.is_a?(Hash) && request
     return true if request.imode_browser_1_0?
 
     # au and softbank have two forms of cookies depending on if it is
