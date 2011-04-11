@@ -1,10 +1,11 @@
 module Galakei
   module HelperMethods
+    include ActionView::Helpers::RawOutputHelper
     def self.included(klass)
       klass.helper_method :galakei?
       klass.helper_method :emoji_table
-    end
-
+      klass.helper_method :spacer_gif
+    end 
     protected
 
     def galakei?
@@ -21,6 +22,10 @@ module Galakei
       else
         EmojiTable.unicode
       end
+    end
+
+    def spacer_gif(color,width = 1, height = 1)
+      raw "<img src='#{spacer_path(:color => color)}' width = '#{width}' height = '#{height}'/>"
     end
   end
 end

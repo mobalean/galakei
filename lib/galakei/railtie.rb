@@ -4,6 +4,7 @@ module Galakei
     initializer "galakei.extend.action_controller" do |app|
       ActiveSupport.on_load :action_controller do
         include Galakei::HelperMethods
+        include Galakei::Spacer
         filters = %w[Views ContentType]
         filters << :Haml if defined?(Haml)
         filters.each {|f| Galakei::Filter.const_get(f).inject(self) }

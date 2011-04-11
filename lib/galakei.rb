@@ -1,5 +1,6 @@
 if defined?(Rails)
   require 'galakei/railtie'
+  require 'galakei/engine'
   require 'galakei/use_rack_request_to_extract_sid'
 end
 require 'galakei/request'
@@ -12,6 +13,7 @@ module Galakei
   autoload :InputMode, "galakei/input_mode"
   autoload :EmojiTable, "galakei/emoji_table"
   autoload :SessionIdParameterInForm, "galakei/session_id_parameter_in_form"
+  autoload :Spacer, "galakei/spacer"
   module Filter
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
