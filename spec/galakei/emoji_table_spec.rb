@@ -9,7 +9,7 @@ describe Galakei::EmojiTable do
     @unicode.black_sun_with_rays.should == "\u2600"
     @docomo.black_sun_with_rays.should == "\uE63E"
     @softbank.black_sun_with_rays.should == "\uE04A"
-    @au.black_sun_with_rays.should == "\uE488"
+    @au.black_sun_with_rays.should == "\uEF60"
   end
 
   it "should handle multi-character unicode" do
