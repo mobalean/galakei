@@ -39,7 +39,7 @@ module Galakei
     MAPPING.each do |k,v|
       MAPPING[k] = v.map do |a| 
         a = [ a ] if a.is_a?(String)
-        a.map {|s| "&#x#{s};"}.join.html_safe
+        a.map{|s| ("0x" + s).hex}.pack("U*")
       end
       define_method k do
         MAPPING[k][@carrier]

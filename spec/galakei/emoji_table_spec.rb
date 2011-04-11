@@ -6,14 +6,14 @@ describe Galakei::EmojiTable do
   end
 
   it "should handle single-character unicode" do
-    @unicode.black_sun_with_rays.should == "&#x2600;"
-    @docomo.black_sun_with_rays.should == "&#xE63E;"
-    @softbank.black_sun_with_rays.should == "&#xE04A;"
-    @au.black_sun_with_rays.should == "&#xE488;"
+    @unicode.black_sun_with_rays.should == "\u2600"
+    @docomo.black_sun_with_rays.should == "\uE63E"
+    @softbank.black_sun_with_rays.should == "\uE04A"
+    @au.black_sun_with_rays.should == "\uE488"
   end
 
   it "should handle multi-character unicode" do
-    @unicode.hash_key.should == "&#x0023;&#x20E3;"
-    @docomo.hash_key.should == "&#xE6E0;"
+    @unicode.hash_key.should == "\u{0023 20E3}"
+    @docomo.hash_key.should == "\uE6E0"
   end
 end
