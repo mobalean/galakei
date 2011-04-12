@@ -10,21 +10,21 @@ end
 feature 'emoji table' do
   scenario 'for docomo', :driver => :docomo do
     visit '/emoji'
-    page.body.should match("&#xE63E;")
+    page.body.should match("\uE63E")
   end
 
   scenario 'for au', :driver => :au do
     visit '/emoji'
-    page.body.should match("&#xE488;")
+    page.body.should match("\uEF60")
   end
 
   scenario 'for softbank', :driver => :softbank do
     visit '/emoji'
-    page.body.should match("&#xE04A;")
+    page.body.should match("\uE04A")
   end
 
   scenario 'for non galakei' do
     visit '/emoji'
-    page.body.should match("&#x2600;")
+    page.body.should match("\u2600")
   end
 end
