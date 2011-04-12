@@ -1,9 +1,9 @@
 class Galakei::SpacerController < ApplicationController
   def create
     respond_to do |format|
-      color,incolor = params[:color],params[:incolor]
+      color,transparent = params[:color],params[:transparent]
       format.gif {
-        send_data(Galakei::Spacer.create(color,incolor), :disposition => "inline", :type => :gif)
+        send_data(Galakei::Spacer.create(color,transparent), :disposition => "inline", :type => :gif)
       }
     end
   end

@@ -24,8 +24,11 @@ module Galakei
       end
     end
 
-    def spacer_gif(color,width = 1, height = 1)
-      raw "<img src='#{spacer_path(:color => color)}' width = '#{width}' height = '#{height}'/>"
+    def spacer_gif(color, options = {})
+      width = options[:width] || 1
+      height = options[:height] || 1
+      transparent = options[:transparent] || false
+      raw "<img src='#{spacer_path(:color => color, :transparent => transparent)}' width = '#{width}' height = '#{height}'/>"
     end
   end
 end
