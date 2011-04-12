@@ -4,6 +4,7 @@ require 'action_controller/railtie'
 require 'action_view/railtie'
 require 'haml'
 require 'galakei/railtie'
+require 'galakei/engine'
 
 # database
 ActiveRecord::Base.configurations = {'test' => {:adapter => 'sqlite3', :database => ':memory:'}}

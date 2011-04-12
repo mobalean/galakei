@@ -1,6 +1,8 @@
 $:.unshift File.expand_path('../../lib', __FILE__)
 
 require 'galakei'
+require File.expand_path(File.dirname(__FILE__) + "/app/fake")
+require 'rspec/rails'
 
 def env_for(device_name)
   user_agent = { 
