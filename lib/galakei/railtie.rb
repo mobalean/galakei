@@ -1,5 +1,5 @@
 module Galakei
-  class Railtie < Rails::Railtie
+  class Railtie < ::Rails::Railtie
     config.galakei = ActiveSupport::OrderedOptions.new
     initializer "galakei.extend.action_controller" do |app|
       ActiveSupport.on_load :action_controller do

@@ -137,4 +137,31 @@ EOD
       doc.at("//h1").to_s.should == %q{<h1><span style="color: red;">foo</span></h1>}
     end
   end
+
+  context 'border css applied to div' do
+    before do
+      parser = CssParser::Parser.new
+      parser.add_block!(<<-EOD)
+        div { border: 1px solid #000000; }
+      EOD
+      @stylesheet = described_class.new(parser)
+    end
+
+    context 'simple div' do
+      let(:html) do
+        line = "<div style=\"background-color: #000000\"><img src='/spacer/create?color=#000000&transparent=true' width = '1' height = '1'/></div>"
+        <<-EOF
+<div>
+#{line}test#{line}
+</div>
+        EOF
+      end
+      before do
+        @doc = Nokogiri::HTML("<div>test</div>")
+        @stylesheet.apply(@doc)
+      end
+      subject { @doc.at("//div").to_s }
+      it { should == html.chop }
+    end
+  end
 end

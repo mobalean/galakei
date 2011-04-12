@@ -26,5 +26,12 @@ module Galakei
       end
       return hex_to_bin(hex)
     end
+
+    def self.gif(color, options = {})
+      width = options[:width] || 1
+      height = options[:height] || 1
+      transparent = options[:transparent] || false
+      "<img src='/spacer/create?color=#{color}&transparent=#{transparent}' width = '#{width}' height = '#{height}'/>"
+    end
   end
 end

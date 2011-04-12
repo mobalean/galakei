@@ -61,6 +61,23 @@ EOD
           else
             merge_style(e, s)
           end
+        elsif selector =~ /^div[^\s]*$/
+          if %w[border].include?(property)
+            border_top = Nokogiri.make("<div>")
+            merge_style(border_top,"background-color: #{value.split(/\s/).last}")
+            border_top.add_child(Nokogiri::XML::CDATA.new(
+              e,Galakei::Spacer.gif('#000000', :transparent => true))
+                                )
+            border_bottom = Nokogiri.make("<div>")
+            merge_style(border_bottom,"background-color: #{value.split(/\s/).last}")
+            border_bottom.add_child(Nokogiri::XML::CDATA.new(
+              e,Galakei::Spacer.gif('#000000', :transparent => true))
+                                )
+            e.children.before(border_top)
+            e.add_child(border_bottom)
+          else
+            merge_style(e, s)
+          end
         else
           merge_style(e, s)
         end
