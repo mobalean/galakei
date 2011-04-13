@@ -45,6 +45,13 @@ EOD
     e.add_child(new_parent)
   end
 
+  def add_image_line(e, property, value)
+    color = value.split(/\s/).last.split('#').last
+    img =  Galakei::Spacer.gif(color)
+    e.before(img)
+    e.after(img)
+  end
+
   def embed_style(doc, ruleset, selector)
     doc.css(selector).each do |e| 
       ruleset.each_declaration do |property, value, is_important|
@@ -61,15 +68,8 @@ EOD
           else
             merge_style(e, s)
           end
-        elsif selector =~ /^div[^\s]*$/
-          if %w[border].include?(property)
-            color = value.split(/\s/).last.split('#').last
-            img =  Galakei::Spacer.gif(color)
-            e.before(img)
-            e.after(img)
-          else
-            merge_style(e, s)
-          end
+        elsif selector =~ /^div[^\s]*$/ && %w[border].include?(property)
+          add_image_line(e, property, value)
         else
           merge_style(e, s)
         end
