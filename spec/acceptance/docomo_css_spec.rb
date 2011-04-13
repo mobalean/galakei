@@ -30,6 +30,7 @@ end
 
 feature 'inlining of css' do
   scenario 'requesting simple page for docomo', :driver => :docomo do
+    pending
     FakeWeb.register_uri(:get, 'http://www.example.com/stylesheets/docomo_css/simple.css', :body => "span { color: red }")
     visit '/docomo_css/simple'
     find("span")["style"].should == "color: red;"

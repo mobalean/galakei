@@ -9,15 +9,26 @@ class Galakei::DocomoCss::InlineStylesheet
     return if stylesheets.empty?
     stylesheets.each do |e|
       e.unlink
-      parser = CssParser::Parser.new
-      uri = URI.parse(e['href'])
-      uri.scheme = controller.request.scheme unless uri.scheme
-      uri.host = controller.request.host unless uri.host
-      uri.port = controller.request.port unless uri.port
-      parser.load_uri!(uri)
-      stylesheet = Galakei::DocomoCss::Stylesheet.new(parser)
+      stylesheet = Galakei::DocomoCss::Stylesheet.new(parser(e['href']))
       stylesheet.apply(doc)
     end
     controller.response.body = doc.to_xhtml(:encoding => doc.encoding)
+  end
+
+  private
+  def self.parser(href)
+    parser = CssParser::Parser.new
+    uri = URI.parse(href)
+    if uri.host && uri.scheme && uri.port
+      parser.load_uri!(uri)
+    else
+      parser.load_file!(path(href))
+    end
+    return parser
+  end
+
+  def self.path(href)
+    base_path = href.gsub(ActionController::Base.asset_host || '', '').gsub(/\?\d+/,'')
+    File.join(Rails.root, 'public', base_path)
   end
 end
