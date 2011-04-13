@@ -1,3 +1,3 @@
  Rails.application.routes.draw do |map|
-   match 'spacer' => 'galakei/spacer#create', :format => :gif
+   match 'galakei/spacer/:color' => 'galakei/spacer#create', :format => :gif
  end

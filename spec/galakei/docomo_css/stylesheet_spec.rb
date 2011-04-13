@@ -145,23 +145,15 @@ EOD
         div { border: 1px solid #000000; }
       EOD
       @stylesheet = described_class.new(parser)
+      @doc = Nokogiri::HTML("<div>test</div>")
+      @stylesheet.apply(@doc)
+      @img = %q[<img src="/galakei/spacer/000000" width="100%" height="1">]
     end
 
-    context 'simple div' do
-      let(:html) do
-        line = "<div style=\"background-color: #000000\"><img src='/spacer/create?color=#000000&transparent=true' width = '1' height = '1'/></div>"
-        <<-EOF
-<div>
-#{line}test#{line}
-</div>
-        EOF
-      end
-      before do
-        @doc = Nokogiri::HTML("<div>test</div>")
-        @stylesheet.apply(@doc)
-      end
-      subject { @doc.at("//div").to_s }
-      it { should == html.chop }
+    it do
+      div = @doc.at("//div")
+      div.previous_sibling.to_s.should == @img 
+      div.next_sibling.to_s.should == @img 
     end
   end
 end

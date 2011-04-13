@@ -28,10 +28,9 @@ module Galakei
     end
 
     def self.gif(color, options = {})
-      width = options[:width] || 1
+      width = options[:width] || '100%'
       height = options[:height] || 1
-      transparent = options[:transparent] || false
-      "<img src='/spacer/create?color=#{color}&transparent=#{transparent}' width = '#{width}' height = '#{height}'/>"
+      "<img src='/galakei/spacer/#{color}' width='#{width}' height='#{height}'>"
     end
   end
 end
