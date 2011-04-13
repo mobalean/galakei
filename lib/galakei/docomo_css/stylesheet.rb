@@ -45,11 +45,30 @@ EOD
     e.add_child(new_parent)
   end
 
-  def add_image_line(e, property, value)
+  def add_image_line_to_top(e, property, value)
     color = value.split(/\s/).last.split('#').last
     img =  Galakei::Spacer.gif(color)
     e.before(img)
+  end
+
+  def add_image_line_to_bottom(e, property, value)
+    color = value.split(/\s/).last.split('#').last
+    img =  Galakei::Spacer.gif(color)
     e.after(img)
+  end
+
+  def style_for_div(e,property,value)
+    case property
+    when 'border'
+      add_image_line_to_top(e, property, value)
+      add_image_line_to_bottom(e, property, value)
+    when 'border-top'
+      add_image_line_to_top(e, property, value)
+    when 'border-bottom'
+      add_image_line_to_bottom(e, property, value)
+    else
+      merge_style(e, "#{property}: #{value}")
+    end
   end
 
   def embed_style(doc, ruleset, selector)
@@ -68,8 +87,8 @@ EOD
           else
             merge_style(e, s)
           end
-        elsif selector =~ /^div[^\s]*$/ && %w[border].include?(property)
-          add_image_line(e, property, value)
+        elsif selector =~ /^div[^\s]*$/
+          style_for_div(e,property,value)
         else
           merge_style(e, s)
         end

@@ -156,4 +156,42 @@ EOD
       div.next_sibling.to_s.should == @img 
     end
   end
+
+  context 'border-top css applied to div' do
+    before do
+      parser = CssParser::Parser.new
+      parser.add_block!(<<-EOD)
+        div { border-top: 1px solid #000000; }
+      EOD
+      @stylesheet = described_class.new(parser)
+      @doc = Nokogiri::HTML("<div>test</div>")
+      @stylesheet.apply(@doc)
+      @img = %q[<img src="/galakei/spacer/000000" width="100%" height="1">]
+    end
+
+    it 'should convert border to image' do
+      div = @doc.at("//div")
+      div.previous_sibling.to_s.should == @img 
+      div.next_sibling.to_s.should_not == @img
+    end
+  end
+
+  context 'border-bottom css applied to div' do
+    before do
+      parser = CssParser::Parser.new
+      parser.add_block!(<<-EOD)
+        div { border-bottom: 1px solid #000000; }
+      EOD
+      @stylesheet = described_class.new(parser)
+      @doc = Nokogiri::HTML("<div>test</div>")
+      @stylesheet.apply(@doc)
+      @img = %q[<img src="/galakei/spacer/000000" width="100%" height="1">]
+    end
+
+    it 'should convert border to image' do
+      div = @doc.at("//div")
+      div.previous_sibling.to_s.should_not == @img 
+      div.next_sibling.to_s.should == @img
+    end
+  end
 end
