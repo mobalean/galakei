@@ -30,18 +30,21 @@ end
 
 feature 'inlining of css' do
   scenario 'requesting simple page for docomo', :driver => :docomo do
-    pending
-    FakeWeb.register_uri(:get, 'http://www.example.com/stylesheets/docomo_css/simple.css', :body => "span { color: red }")
+    parser = CssParser::Parser.new
+    parser.add_block!('span { color: red}') 
+    Galakei::DocomoCss::InlineStylesheet.stub(:parser) { parser }
     visit '/docomo_css/simple'
     find("span")["style"].should == "color: red;"
     page.should_not have_xpath("//link")
   end
+
   scenario 'requesting external page for docomo', :driver => :docomo do
     FakeWeb.register_uri(:get, 'http://www.galakei.com/external.css', :body => "span { color: red }")
     visit '/docomo_css/external'
     find("span")["style"].should == "color: red;"
     page.should_not have_xpath("//link")
   end
+
   %w[au softbank docomo_2_0].each do |carrier|
     scenario "requesting simple page for #{carrier}", :driver => carrier.to_sym do
       visit '/docomo_css/simple'
