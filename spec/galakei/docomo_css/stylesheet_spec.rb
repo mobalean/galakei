@@ -1,5 +1,5 @@
 require 'spec_helper'
-require "nokogiri"
+require 'nokogiri'
 
 describe Galakei::DocomoCss::Stylesheet do
   context "simple stylesheet" do
@@ -150,7 +150,7 @@ EOD
       @img = %q[<img src="/galakei/spacer/000000" width="100%" height="1">]
     end
 
-    it do
+    it 'should convert border to image' do
       div = @doc.at("//div")
       div.previous_sibling.to_s.should == @img 
       div.next_sibling.to_s.should == @img 

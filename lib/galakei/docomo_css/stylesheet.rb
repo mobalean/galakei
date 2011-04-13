@@ -63,7 +63,8 @@ EOD
           end
         elsif selector =~ /^div[^\s]*$/
           if %w[border].include?(property)
-            img =  Galakei::Spacer.gif(value.split(/\s/).last.split('#').last)
+            color = value.split(/\s/).last.split('#').last
+            img =  Galakei::Spacer.gif(color)
             e.before(img)
             e.after(img)
           else

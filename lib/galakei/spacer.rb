@@ -1,9 +1,10 @@
 module Galakei
   module Spacer
-    START = '47494638396101000100f70000'
-    NOT_TRANSPARENT = '2c000000000100010000080400010404003b'
-    TRANSPARENT = '21f90401000000002c000000000100010000080400010404003b'
-    END_ = 'f'*1530
+    HEX = [
+      '47494638396101000100f70000',
+      'f'*1530,
+      '2c000000000100010000080400010404003b'
+    ]
 
     def self.hex_to_bin(str)
       num = str.size
@@ -15,15 +16,10 @@ module Galakei
       return bin
     end
 
-    def self.create(color = '#ffffff', transparent = false)
+    def self.create(color = '#ffffff')
       color = '#000000' if color.nil?
       color = color.gsub('#','')
-      hex = START + color + END_
-      if transparent
-        hex += TRANSPARENT
-      else
-        hex += NOT_TRANSPARENT
-      end
+      hex = HEX[0] + color + HEX[1] + HEX[2]
       return hex_to_bin(hex)
     end
 
