@@ -23,7 +23,7 @@ module Galakei
       return hex_to_bin(hex)
     end
 
-    def self.gif(color, options = {})
+    def self.img_tag(color, options = {})
       width = options[:width] || '100%'
       height = options[:height] || 1
       "<img src='/galakei/spacer/#{color}' width='#{width}' height='#{height}'>"
