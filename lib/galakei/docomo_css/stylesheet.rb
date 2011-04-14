@@ -47,13 +47,13 @@ EOD
 
   def add_image_line_to_top(e, property, value)
     color = value.split(/\s/).last.split('#').last
-    img =  Galakei::Spacer.img_tag(color)
+    img =  Galakei::Spacer.new(color).img_tag
     e.before(img)
   end
 
   def add_image_line_to_bottom(e, property, value)
     color = value.split(/\s/).last.split('#').last
-    img =  Galakei::Spacer.img_tag(color)
+    img =  Galakei::Spacer.new(color).img_tag
     e.after(img)
   end
 
