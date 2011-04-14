@@ -42,7 +42,7 @@ describe Galakei::DocomoCss::Stylesheet do
     it "should apply style to element that matches one style" do
       doc = Nokogiri::HTML.fragment("<div class='alC'>foo</span>")
       @stylesheet.apply(doc)
-      doc.to_s.should == %q{<div class="alC" style="background-color: red;text-align: center">foo</div>}
+      doc.to_s.should == %q{<div class="alC" style="background-color: red;text-align: center;">foo</div>}
     end
   end
 

@@ -30,77 +30,107 @@ EOD
 
   private
 
-  def merge_style(e, s)
-    if e["style"] 
-      e['style'] += ";" unless e['style'] =~ /;\Z/
-        e['style'] += s
-    else
-      e["style"] = s
-    end
-  end
-
-  def wrap_all_children(e, s)
-    new_parent = e.document.parse(s).first
-    e.children.each {|f| new_parent.add_child(f)}
-    e.add_child(new_parent)
-  end
-
-  def add_image_line_to_top(e, property, value)
-    color = value.split(/\s/).last.split('#').last
-    img =  Galakei::Spacer.new(color).img_tag
-    e.before(img)
-  end
-
-  def add_image_line_to_bottom(e, property, value)
-    color = value.split(/\s/).last.split('#').last
-    img =  Galakei::Spacer.new(color).img_tag
-    e.after(img)
-  end
-
-  def style_for_div(e,property,value)
-    if %w[border border-top border-bottom].include? property
-      border(e,property, value)
-    else
-      merge_style(e, "#{property}: #{value}")
-    end
-  end
-
-  def border(e,property,value)
-    case property
-    when 'border'
-      add_image_line_to_top(e, property, value)
-      add_image_line_to_bottom(e, property, value)
-    when 'border-top'
-      add_image_line_to_top(e, property, value)
-    when 'border-bottom'
-      add_image_line_to_bottom(e, property, value)
-    end
-  end
-
   def embed_style(doc, ruleset, selector)
     doc.css(selector).each do |e| 
+      styles = []
       ruleset.each_declaration do |property, value, is_important|
-        s = "#{property}: #{value};"
-        if e.name =~ /^(h\d|p)$/
-          if %w[color font-size].include?(property)
-            wrap_all_children(e, '<span>')
-            merge_style(e.children.first, s)
-          elsif %w[background-color].include?(property)
-            div = Nokogiri.make("<div>")
-            merge_style(div, s)
-            e.replace(div)
-            div.add_child(e)
-          elsif %w[border border-top border-bottom].include? property
-            border(e,property, value)
-          else
-            merge_style(e, s)
-          end
-        elsif e.name == 'div'
-          style_for_div(e,property,value)
-        else
-          merge_style(e, s)
+        styles << [property,value]
+      end
+      StyleApplier.create(e, styles).apply!
+    end
+  end
+
+  module Font
+    def applied_font(property,value,style)
+      return false unless %w[color font-size].include?(property)
+      wrap_all_children('<span>')
+      merge_style(@element.children.first, style)
+    end
+
+    def wrap_all_children(style)
+      new_parent = @element.document.parse(style).first
+      @element.children.each {|f| new_parent.add_child(f)}
+      @element.add_child(new_parent)
+    end
+  end
+
+  module BackGround
+    def applied_background(property,value,style)
+      return false unless property == 'background-color'
+      div = Nokogiri.make("<div>")
+      merge_style(div,style)
+      @element.replace(div)
+      div.add_child(@element)
+    end
+  end
+
+  module Border
+    def applied_border(property,value,style)
+      return false unless %w[border border-top border-bottom].include?(property)
+      color = value.split(/\s/).last.split('#').last
+      img =  Galakei::Spacer.new(color).img_tag
+
+      case property
+      when 'border'
+        @element.after(img)
+        @element.before(img)
+      when 'border-top'
+        @element.before(img)
+      when 'border-bottom'
+        @element.after(img)
+      end
+    end
+  end
+
+  class StyleApplier
+    def self.create(element,styles)
+      case element.name
+      when /^h\d$/
+        HStyleApplier.new(element, styles)
+      when 'p'
+        PStyleApplier.new(element, styles)
+      when 'div'
+        DivStyleApplier.new(element, styles)
+      else
+        StyleApplier.new(element,styles)
+      end
+    end
+
+    def initialize(element,styles)
+      @element = element
+      @styles = styles
+    end
+
+    def apply!
+      @styles.each do |property,value|
+        style = "#{property}: #{value};"
+        applied_methods = self.class.instance_methods.grep(/^applied_/)
+        is_applied = applied_methods.map {|m| send(m,property,value,style)}.uniq
+        if is_applied == [false] || is_applied.blank?
+          merge_style(@element,style)
         end
       end
     end
+
+    def merge_style(element,style)
+      if element['style']
+        element['style'] += ";" unless element['style'] =~ /;\Z/
+        element['style'] += style
+      else
+        element["style"] = style
+      end
+    end
+  end
+
+  class HStyleApplier < StyleApplier
+    include Border
+    include BackGround
+    include Font
+  end
+
+  PStyleApplier = HStyleApplier
+
+  class DivStyleApplier < StyleApplier
+    include Border
   end
 end
