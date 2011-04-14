@@ -58,6 +58,14 @@ EOD
   end
 
   def style_for_div(e,property,value)
+    if %w[border border-top border-bottom].include? property
+      border(e,property, value)
+    else
+      merge_style(e, "#{property}: #{value}")
+    end
+  end
+
+  def border(e,property,value)
     case property
     when 'border'
       add_image_line_to_top(e, property, value)
@@ -66,8 +74,6 @@ EOD
       add_image_line_to_top(e, property, value)
     when 'border-bottom'
       add_image_line_to_bottom(e, property, value)
-    else
-      merge_style(e, "#{property}: #{value}")
     end
   end
 
@@ -84,6 +90,8 @@ EOD
             merge_style(div, s)
             e.replace(div)
             div.add_child(e)
+          elsif %w[border border-top border-bottom].include? property
+            border(e,property, value)
           else
             merge_style(e, s)
           end

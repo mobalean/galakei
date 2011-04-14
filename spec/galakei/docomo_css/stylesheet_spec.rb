@@ -138,6 +138,30 @@ EOD
     end
   end
 
+  shared_examples_for 'border' do
+    it 'applied border' do
+      elm = subject
+      elm.previous_sibling.to_s.should == @img
+      elm.next_sibling.to_s.should == @img
+    end
+  end
+
+  shared_examples_for 'border bottom' do
+    it 'applied border bottom' do
+      elm = subject
+      elm.previous_sibling.to_s.should_not == @img
+      elm.next_sibling.to_s.should == @img
+    end
+  end
+
+  shared_examples_for 'border top' do
+    it 'applied border top' do
+      elm = subject
+      elm.previous_sibling.to_s.should == @img
+      elm.next_sibling.to_s.should_not == @img
+    end
+  end
+
   context 'border css applied to div' do
     before do
       parser = CssParser::Parser.new
@@ -147,35 +171,48 @@ EOD
       @stylesheet.apply(@doc)
       @img = %q[<img src="/galakei/spacer/000000" width="100%" height="1">]
     end
+    subject { @doc.at('//div') }
 
     context 'border' do
       let(:css) { "div { border: 1px solid #000000; } "}
-
-      it 'should convert border to image' do
-        div = @doc.at("//div")
-        div.previous_sibling.to_s.should == @img
-        div.next_sibling.to_s.should == @img
-      end
+      it_should_behave_like 'border'
     end
 
     context 'border-top' do
       let(:css) { "div { border-top: 1px solid #000000; } "}
-
-      it 'should convert border to image' do
-        div = @doc.at("//div")
-        div.previous_sibling.to_s.should == @img 
-        div.next_sibling.to_s.should_not == @img
-      end
+      it_should_behave_like 'border top'
     end
 
     context 'border-bottom' do
       let(:css) { "div { border-bottom: 1px solid #000000; } "}
+      it_should_behave_like 'border bottom'
+    end
+  end
 
-      it 'should convert border to image' do
-        div = @doc.at("//div")
-        div.previous_sibling.to_s.should_not == @img 
-        div.next_sibling.to_s.should == @img
-      end
+  context 'border css applied to h(n)' do
+    before do
+      parser = CssParser::Parser.new
+      parser.add_block!(css)
+      @stylesheet = described_class.new(parser)
+      @doc = Nokogiri::HTML("<h1>test</h1>")
+      @stylesheet.apply(@doc)
+      @img = %q[<img src="/galakei/spacer/000000" width="100%" height="1">]
+    end
+    subject { @doc.at("//h1") }
+
+    context 'border' do
+      let(:css) { "h1 { border: 1px solid #000000; } "}
+      it_should_behave_like 'border'
+    end
+
+    context 'border-top' do
+      let(:css) { "h1 { border-top: 1px solid #000000; } "}
+      it_should_behave_like 'border top'
+    end
+
+    context 'border-bottom' do
+      let(:css) { "h1 { border-bottom: 1px solid #000000; } "}
+      it_should_behave_like 'border bottom'
     end
   end
 end
