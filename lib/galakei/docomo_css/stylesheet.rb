@@ -81,7 +81,7 @@ EOD
     doc.css(selector).each do |e| 
       ruleset.each_declaration do |property, value, is_important|
         s = "#{property}: #{value};"
-        if selector =~ /^(h\d|p)[^\s]*$/
+        if e.name =~ /^(h\d|p)$/
           if %w[color font-size].include?(property)
             wrap_all_children(e, '<span>')
             merge_style(e.children.first, s)
@@ -95,7 +95,7 @@ EOD
           else
             merge_style(e, s)
           end
-        elsif selector =~ /^div[^\s]*$/
+        elsif e.name == 'div'
           style_for_div(e,property,value)
         else
           merge_style(e, s)

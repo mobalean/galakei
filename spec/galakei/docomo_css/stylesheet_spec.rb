@@ -42,9 +42,10 @@ describe Galakei::DocomoCss::Stylesheet do
     it "should apply style to element that matches one style" do
       doc = Nokogiri::HTML.fragment("<div class='alC'>foo</span>")
       @stylesheet.apply(doc)
-      doc.to_s.should == %q{<div class="alC" style="background-color: red;text-align: center;">foo</div>}
+      doc.to_s.should == %q{<div class="alC" style="background-color: red;text-align: center">foo</div>}
     end
   end
+
   context "stylesheet with pseudo style" do
     before do
       parser = CssParser::Parser.new
@@ -86,6 +87,7 @@ EOD
           #{tag}.color { color: red; }
           #{tag}.fontsize { font-size: x-small; }
           #{tag}.backgroundcolor { background-color: blue; }
+          .classonly { line-height: 1px; }
         EOD
         @stylesheet = described_class.new(parser)
       end
@@ -112,6 +114,12 @@ EOD
         doc = Nokogiri::HTML("<#{tag} class='backgroundcolor'>foo</#{tag}>")
         @stylesheet.apply(doc)
         doc.at("//div").to_s.should == %Q{<div style="background-color: blue;"><#{tag} class="backgroundcolor">foo</#{tag}></div>}
+      end
+
+      it "should applied css of tag omitted" do
+        doc = Nokogiri::HTML("<#{tag} class='classonly'>foo</#{tag}>")
+        @stylesheet.apply(doc)
+        doc.at("//#{tag}").to_s.should == %Q{<#{tag} class="classonly" style="line-height: 1px;">foo</#{tag}>}
       end
     end
   end
@@ -163,11 +171,12 @@ EOD
   end
 
   context 'border css applied to div' do
+    let(:body) { "<div>test</div>" }
     before do
       parser = CssParser::Parser.new
       parser.add_block!(css)
       @stylesheet = described_class.new(parser)
-      @doc = Nokogiri::HTML("<div>test</div>")
+      @doc = Nokogiri::HTML(body)
       @stylesheet.apply(@doc)
       @img = %q[<img src="/galakei/spacer/000000" width="100%" height="1">]
     end
@@ -186,6 +195,12 @@ EOD
     context 'border-bottom' do
       let(:css) { "div { border-bottom: 1px solid #000000; } "}
       it_should_behave_like 'border bottom'
+    end
+
+    context 'bordre with class' do
+      let(:css) { ".border { border: 1px solid #000000; }" }
+      let(:body) { "<div class='border'>test</div>" }
+      it_should_behave_like 'border'
     end
   end
 
