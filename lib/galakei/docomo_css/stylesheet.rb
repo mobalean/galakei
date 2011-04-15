@@ -36,84 +36,32 @@ EOD
       ruleset.each_declaration do |property, value, is_important|
         styles << [property,value]
       end
-      StyleApplier.create(e, styles).apply!
+      apply_element_specific_style(e, styles)
     end
   end
 
-  module Font
-    def applied_font(property,value,style)
-      return false unless %w[color font-size].include?(property)
-      wrap_all_children('<span>')
-      merge_style(@element.children.first, style)
+  def apply_element_specific_style(element, styles)
+    style_adapters = case element.name
+    when /^h\d$/
+      [BorderAdapter, BackGroundAdapter, FontAdapter]
+    when 'p'
+      [BackGroundAdapter, FontAdapter]
+    when 'div'
+      [BorderAdapter]
+    else
+      []
     end
-
-    def wrap_all_children(style)
-      new_parent = @element.document.parse(style).first
-      @element.children.each {|f| new_parent.add_child(f)}
-      @element.add_child(new_parent)
-    end
-  end
-
-  module BackGround
-    def applied_background(property,value,style)
-      return false unless property == 'background-color'
-      div = Nokogiri.make("<div>")
-      merge_style(div,style)
-      @element.replace(div)
-      div.add_child(@element)
+    styles.each do |property,value|
+      applicable_styles = style_adapters.find_all {|s| s.apply?(property)}
+      applicable_styles = [ CssInliner ] if applicable_styles.empty?
+      applicable_styles.each {|s| s.apply(element, property, value) }
     end
   end
 
-  module Border
-    def applied_border(property,value,style)
-      return false unless %w[border border-top border-bottom].include?(property)
-      color = value.split(/\s/).last.split('#').last
-      thickness = value.match(/(\d+)px/)[1]
-      img = Galakei::Spacer.new(color).img_tag(:height => thickness)
-
-      case property
-      when 'border'
-        @element.after(img)
-        @element.before(img)
-      when 'border-top'
-        @element.before(img)
-      when 'border-bottom'
-        @element.after(img)
-      end
-    end
-  end
-
-  class StyleApplier
-    def self.create(element,styles)
-      case element.name
-      when /^h\d$/
-        HStyleApplier.new(element, styles)
-      when 'p'
-        PStyleApplier.new(element, styles)
-      when 'div'
-        DivStyleApplier.new(element, styles)
-      else
-        StyleApplier.new(element,styles)
-      end
-    end
-
-    def initialize(element,styles)
-      @element = element
-      @styles = styles
-    end
-
-    def apply!
-      @styles.each do |property,value|
-        style = "#{property}: #{value};"
-        applied_methods = self.class.instance_methods.grep(/^applied_/)
-        is_applied = applied_methods.map {|m| send(m,property,value,style)}.uniq
-        if is_applied == [false] || is_applied.blank?
-          merge_style(@element,style)
-        end
-      end
-    end
-
-    def merge_style(element,style)
+  class GenericAdapter
+    private
+    def self.merge_style(element,property, value)
+      style = "#{property}: #{value};"
       if element['style']
         element['style'] += ";" unless element['style'] =~ /;\Z/
         element['style'] += style
@@ -123,18 +71,63 @@ EOD
     end
   end
 
-  class HStyleApplier < StyleApplier
-    include Border
-    include BackGround
-    include Font
+  class CssInliner < GenericAdapter
+    def self.apply(element, property, value)
+      merge_style(element,property,value)
+    end
   end
 
-  class PStyleApplier < StyleApplier
-    include BackGround
-    include Font
+  class FontAdapter < GenericAdapter
+    def self.apply?(property)
+      %w[color font-size].include?(property)
+    end
+
+    def self.apply(element, property, value)
+      wrap_all_children(element, '<span>')
+      merge_style(element.children.first, property, value)
+    end
+
+    private
+
+    def self.wrap_all_children(element, tag)
+      new_parent = element.document.parse(tag).first
+      element.children.each {|f| new_parent.add_child(f)}
+      element.add_child(new_parent)
+    end
   end
 
-  class DivStyleApplier < StyleApplier
-    include Border
+  class BackGroundAdapter < GenericAdapter
+    def self.apply?(property)
+      property == 'background-color'
+    end
+
+    def self.apply(element, property, value)
+      div = Nokogiri.make("<div>")
+      merge_style(div,property,value)
+      element.replace(div)
+      div.add_child(element)
+    end
+  end
+
+  class BorderAdapter < GenericAdapter
+    def self.apply?(property)
+      %w[border border-top border-bottom].include?(property)
+    end
+
+    def self.apply(element, property,value)
+      color = value.split(/\s/).last.split('#').last
+      thickness = value.match(/(\d+)px/)[1]
+      img = Galakei::Spacer.new(color).img_tag(:height => thickness)
+
+      case property
+      when 'border'
+        element.after(img)
+        element.before(img)
+      when 'border-top'
+        element.before(img)
+      when 'border-bottom'
+        element.after(img)
+      end
+    end
   end
 end
