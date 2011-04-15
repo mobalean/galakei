@@ -68,7 +68,8 @@ EOD
     def applied_border(property,value,style)
       return false unless %w[border border-top border-bottom].include?(property)
       color = value.split(/\s/).last.split('#').last
-      img =  Galakei::Spacer.new(color).img_tag
+      thickness = value.match(/(\d+)px/)[1]
+      img = Galakei::Spacer.new(color).img_tag(:height => thickness)
 
       case property
       when 'border'
