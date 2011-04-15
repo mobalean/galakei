@@ -19,5 +19,6 @@ module Galakei
     autoload :ContentType, "galakei/filter/content_type"
     autoload :Haml, "galakei/filter/haml"
     autoload :Views, "galakei/filter/views"
+    autoload :NonStandardChar, "galakei/filter/non_standard_char"
   end
 end
