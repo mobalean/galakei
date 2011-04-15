@@ -1,4 +1,5 @@
 require "css_parser"
+require 'nokogiri'
 
 class Galakei::DocomoCss::Stylesheet
   def initialize(parsed_stylesheet)

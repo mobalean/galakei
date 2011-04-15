@@ -1,5 +1,6 @@
 # encoding: UTF-8
 require 'css_parser'
+require 'nokogiri'
 
 class Galakei::DocomoCss::InlineStylesheet
   def self.filter(controller)
