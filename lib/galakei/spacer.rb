@@ -6,9 +6,8 @@ module Galakei
       '2c000000000100010000080400010404003b'
     ]
 
-    def initialize(color, options={})
+    def initialize(color)
       @color = color.gsub('#','')
-      @options = options
     end
 
     def create
@@ -25,9 +24,9 @@ module Galakei
       HEX[0] + @color + HEX[1] + HEX[2]
     end
 
-    def img_tag
-      width = @options[:width] || '100%'
-      height = @options[:height] || 1
+    def img_tag(options = {})
+      width = options[:width] || '100%'
+      height = options[:height] || 1
       "<img src='/galakei/spacer/#{@color}' width='#{width}' height='#{height}'>"
     end
   end

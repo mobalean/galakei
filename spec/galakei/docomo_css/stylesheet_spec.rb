@@ -210,6 +210,13 @@ EOD
       let(:body) { "<div class='border'>test</div>" }
       it_should_behave_like 'border'
     end
+
+    context 'border-bottom with height' do
+      let(:css) { "div { border-bottom: 5px solid #000000; } "}
+      it 'applied border bottom' do
+        subject.next_sibling.to_s.should == %q[<img src="/galakei/spacer/000000" width="100%" height="5">]
+      end
+    end
   end
 
   context 'border css applied to h(n)' do

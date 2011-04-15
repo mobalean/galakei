@@ -1,4 +1,4 @@
-class Galakei::SpacerController < ApplicationController
+class Galakei::SpacerController < ActionController::Base
   def create
     respond_to do |format|
       format.gif do
