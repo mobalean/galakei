@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name         = "galakei"
   s.version      = Galakei::VERSION
   s.platform     = Gem::Platform::RUBY
-  s.authors      = ["Paul McMahon", "Michael Reinsch"]
+  s.authors      = ["Paul McMahon", "Michael Reinsch", "Yuki Akamatsu"]
   s.email        = "info@mobalean.com"
   s.homepage     = "http://www.mobalean.com"
   s.summary      = "Japanese feature phones support"
