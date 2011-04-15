@@ -154,6 +154,14 @@ EOD
     end
   end
 
+  shared_examples_for 'not border' do
+    it "don't applied border" do
+      elm = subject
+      elm.previous_sibling.to_s.should_not == @img
+      elm.next_sibling.to_s.should_not == @img
+    end
+  end
+
   shared_examples_for 'border bottom' do
     it 'applied border bottom' do
       elm = subject
@@ -228,6 +236,23 @@ EOD
     context 'border-bottom' do
       let(:css) { "h1 { border-bottom: 1px solid #000000; } "}
       it_should_behave_like 'border bottom'
+    end
+  end
+
+  context 'border css applied to p' do
+    before do
+      parser = CssParser::Parser.new
+      parser.add_block!(css)
+      @stylesheet = described_class.new(parser)
+      @doc = Nokogiri::HTML("<p>test</p>")
+      @stylesheet.apply(@doc)
+      @img = %q[<img src="/galakei/spacer/000000" width="100%" height="1">]
+    end
+    subject { @doc.at("//p") }
+
+    context 'border' do
+      let(:css) { "p { border: 1px solid #000000; } "}
+      it_should_behave_like 'not border'
     end
   end
 end

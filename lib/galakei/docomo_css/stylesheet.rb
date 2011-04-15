@@ -128,7 +128,10 @@ EOD
     include Font
   end
 
-  PStyleApplier = HStyleApplier
+  class PStyleApplier < StyleApplier
+    include BackGround
+    include Font
+  end
 
   class DivStyleApplier < StyleApplier
     include Border
