@@ -6,7 +6,8 @@ class Galakei::Filter::NonStandardChar < Galakei::Filter::Base
   end  
 
   def condition?
-    response.content_type =~ %r{text/html|application/xhtml+xml}
+    response.content_type =~ %r{text/html|application/xhtml+xml} &&
+      (response.charset || Rails.application.config.encoding).downcase == "utf-8"
   end
 
   def filter
