@@ -4,7 +4,7 @@ module Galakei
     initializer "galakei.extend.action_controller" do |app|
       ActiveSupport.on_load :action_controller do
         include Galakei::HelperMethods
-        filters = %w[Views ContentType NonStandardChar]
+        filters = %w[Views ContentType Recode NonStandardChar]
         filters << :Haml if defined?(Haml)
         filters.each {|f| Galakei::Filter.const_get(f).inject(self) }
       end
