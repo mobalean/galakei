@@ -22,6 +22,6 @@ module Galakei::SessionIdParameter::InUrl
     # au and softbank have two forms of cookies depending on if it is
     # http or https, so carry over session id when switching protocols
     return false unless options[:protocol]
-    (request.au? || request.softbank?) && (request.protocol != options[:protocol])
+    request.different_cookie_in_ssl? && (request.protocol != options[:protocol])
   end
 end

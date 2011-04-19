@@ -23,6 +23,10 @@ module Galakei
       end
     end
 
+    def different_cookie_in_ssl?
+      au? || softbank?
+    end
+
     def galakei?
       docomo? || au? || softbank?
     end
