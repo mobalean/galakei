@@ -14,7 +14,7 @@ module ActionDispatch
           stale_session_check! do
             request = Rack::Request.new(env)
             if ! @cookie_only && request.params[@key]
-              request.cookies[@key] = '' if request.ssl? && request.different_cookie_in_ssl?
+              request.cookies[@key] = '' if env['HTTPS'] == 'on' && request.different_cookie_in_ssl?
               request.params[@key]
             else
               request.cookies[@key]
