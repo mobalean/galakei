@@ -47,6 +47,8 @@ EOD
       [BorderAdapter, BackGroundAdapter, FontAdapter]
     when 'p'
       [BackGroundAdapter, FontAdapter]
+    when 'td'
+      [FontAdapter]
     when 'div'
       [BorderAdapter]
     else

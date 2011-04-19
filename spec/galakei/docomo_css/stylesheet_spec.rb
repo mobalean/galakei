@@ -79,7 +79,7 @@ EOD
     end
   end
 
-  ((1..6).map {|i| "h#{i}"} + %w[p]).each do |tag|
+  ((1..6).map {|i| "h#{i}"} + %w[p td]).each do |tag|
     context "style applied to #{tag}" do
       before do
         parser = CssParser::Parser.new
@@ -110,12 +110,6 @@ EOD
         doc.at("//#{tag}").to_s.should == %Q{<#{tag} class="fontsize"><span style="font-size: x-small;">foo<br>bar</span></#{tag}>}
       end
 
-      it "should wrap element in div for background-color" do
-        doc = Nokogiri::HTML("<#{tag} class='backgroundcolor'>foo</#{tag}>")
-        @stylesheet.apply(doc)
-        doc.at("//div").to_s.should == %Q{<div style="background-color: blue;"><#{tag} class="backgroundcolor">foo</#{tag}></div>}
-      end
-
       it "should applied css of tag omitted" do
         doc = Nokogiri::HTML("<#{tag} class='classonly'>foo</#{tag}>")
         @stylesheet.apply(doc)
@@ -123,6 +117,40 @@ EOD
       end
     end
   end
+
+
+  ((1..6).map {|i| "h#{i}"} + %w[p]).each do |tag|
+    context "style applied to #{tag}" do
+      before do
+        parser = CssParser::Parser.new
+        parser.add_block!(<<-EOD)
+          #{tag}.backgroundcolor { background-color: blue; }
+        EOD
+        @stylesheet = described_class.new(parser)
+      end
+      it "should wrap element in div for background-color" do
+        doc = Nokogiri::HTML("<#{tag} class='backgroundcolor'>foo</#{tag}>")
+        @stylesheet.apply(doc)
+        doc.at("//div").to_s.should == %Q{<div style="background-color: blue;"><#{tag} class="backgroundcolor">foo</#{tag}></div>}
+      end
+    end
+  end
+
+  context "style applied to td" do
+    before do
+      parser = CssParser::Parser.new
+      parser.add_block!(<<-EOD)
+        td { background-color: blue; }
+      EOD
+      @stylesheet = described_class.new(parser)
+    end
+    it "should wrap element in div for background-color" do
+      doc = Nokogiri::HTML("<td>foo</td>")
+      @stylesheet.apply(doc)
+      doc.at("//td").to_s.should == %Q{<td style="background-color: blue;">foo</td>}
+    end
+  end
+
 
   context "style applied to child of h1" do
     before do
