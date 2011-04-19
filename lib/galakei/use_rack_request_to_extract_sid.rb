@@ -22,10 +22,9 @@ module ActionDispatch
         end
 
         def set_cookie(request, options)
-          if request.ssl? && request.different_cookie_in_ssl?
+          original_condition = request.cookie_jar[@key] != options[:value] || !options[:expires].nil?
+          if original_condition || (request.ssl? && request.different_cookie_in_ssl?)
             request.cookie_jar[@key] = options
-          else
-            super
           end
         end
     end
