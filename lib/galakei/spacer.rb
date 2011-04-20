@@ -21,7 +21,28 @@ module Galakei
     end
 
     def hex
-      HEX[0] + @color + HEX[1] + HEX[2]
+      hex_color = case @color
+                  when 'maroon'; '800000' 
+                  when 'red'; 'ff0000' 
+                  when 'orange'; 'ffA500'
+                  when 'yellow'; 'ffff00' 
+                  when 'olive'; '808000'
+                  when 'purple'; '800080'
+                  when 'fuchsia'; 'ff00ff'
+                  when 'white'; 'ffffff'
+                  when 'lime'; '00ff00'
+                  when 'green'; '008000'
+                  when 'navy'; '000080'
+                  when 'blue'; '0000ff'
+                  when 'aqua'; '00ffff'
+                  when 'teal'; '008080'
+                  when 'black'; '000000'
+                  when 'silver'; 'c0c0c0'
+                  when 'gray'; '808080'
+                  when 'black'; '000000'
+                  else @color
+                  end
+      HEX[0] + hex_color + HEX[1] + HEX[2]
     end
 
     def img_tag(options = {})

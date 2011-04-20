@@ -21,6 +21,7 @@ app.initialize!
 
 app.routes.draw do
   match 'session_generation' => "sessions#session_generation"
+  match 'galakei/spacer/:color' => 'galakei/spacer#create', :defaults => { :format => :gif } # should be directly using config/routes
   match ':controller(/:action(/:id))'
 end
 class ApplicationController < ActionController::Base; end
