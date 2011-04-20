@@ -105,13 +105,19 @@ feature 'session' do
     end
   end
 
-  scenario 'link https to https for au', :driver => :au do
+  scenario 'link https to https for au browser 7.2', :driver => :au_7 do
     visit "https://www.example.com/sessions/link"
     click_on 'link'
     page.should have_content("Session Param: false")
   end
 
-  %w[au softbank].each do |s|
+  scenario 'link https to https for au browser 6', :driver => :au do
+    visit "https://www.example.com/sessions/link"
+    click_on 'link'
+    page.should have_content("Session Param: true")
+  end
+
+  %w[au au_7 softbank].each do |s|
     scenario "link http to https for #{s}", :driver => s.to_sym do
       visit "http://www.example.com/sessions/secure_link"
       click_on 'secure_link'

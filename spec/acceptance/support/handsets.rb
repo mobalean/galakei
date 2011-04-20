@@ -21,6 +21,10 @@ Capybara.register_driver :au do |app|
   Capybara::Driver::RackTestWithUserAgent.new(app, "KDDI-CA32 UP.Browser/6.2.0.7.3.129 (GUI) MMP/2.0")
 end
 
+Capybara.register_driver :au_7 do |app|
+  Capybara::Driver::RackTestWithUserAgent.new(app, "KDDI-SA3B UP.Browser/6.2_7.2.7.1.K.1.3.101 (GUI) MMP/2.0")
+end
+
 Capybara.register_driver :softbank do |app|
   Capybara::Driver::RackTestWithUserAgent.new(app, "SoftBank/1.0/943SH/SHJ001/SN*************** Browser/NetFront/3.5 Profile/MIDP-2.0 Configuration/CLDC-1.1")
 end

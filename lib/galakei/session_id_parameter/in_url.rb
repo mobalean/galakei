@@ -19,6 +19,9 @@ module Galakei::SessionIdParameter::InUrl
     return false unless options.is_a?(Hash) && request
     return true if request.imode_browser_1_0?
 
+    # cookies on older AU handsets using SSL are unreliable
+    return true if request.au_browser_6? && request.ssl?
+
     # au and softbank have two forms of cookies depending on if it is
     # http or https, so carry over session id when switching protocols
     return false unless options[:protocol]
