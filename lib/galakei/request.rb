@@ -23,6 +23,10 @@ module Galakei
       end
     end
 
+    def au_browser_6?
+      /KDDI.* UP\.Browser\/6\./ =~ user_agent && /UP\.Browser\/6\.2_7/ !~ user_agent
+    end
+
     def different_cookie_in_ssl?
       au? || softbank?
     end

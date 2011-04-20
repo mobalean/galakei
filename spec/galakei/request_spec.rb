@@ -34,6 +34,16 @@ describe Galakei::Request do
     before { @request = Rack::Request.new(env_for("AU W51SH")) }
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "non-softbank devices"
+    it_should_behave_like "au devices"
+    it("should be browser 6") { @request.should be_au_browser_6 }
+  end
+
+  describe "from AU W54SH" do
+    before { @request = Rack::Request.new(env_for("AU W54SA")) }
+    it_should_behave_like "non-docomo devices"
+    it_should_behave_like "non-softbank devices"
+    it_should_behave_like "au devices"
+    it("should not be browser 6") { @request.should_not be_au_browser_6 }
   end
 
   describe "from Vodafone 802N" do
