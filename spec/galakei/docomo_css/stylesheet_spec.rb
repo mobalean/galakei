@@ -272,6 +272,13 @@ EOD
       let(:css) { "h1 { border-bottom: 1px solid #000000; } "}
       it_should_behave_like 'border bottom'
     end
+
+    context 'border bottom with !important' do
+      let(:css) { "h1 { border-bottom: 1px solid #96ca41 !important; } "}
+      it 'applied border bottom' do
+        subject.next_sibling.to_s.should == %q[<img src="/galakei/spacer/96ca41" width="100%" height="1">]
+      end
+    end
   end
 
   context 'border css applied to p' do
