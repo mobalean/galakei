@@ -5,7 +5,7 @@ module Galakei::SessionIdParameter::InForm
   def extra_tags_for_form(html_options)
     return super unless html_options["method"] == :get
     session_id = extract_session_id!(html_options["action"])
-    session_id.blank? ? super : super << session_input_tag(session_id)
+    session_id.blank? ? super : (super + session_input_tag(session_id)).html_safe
   end
 
   def button_to(name, options = {}, html_options = {})
