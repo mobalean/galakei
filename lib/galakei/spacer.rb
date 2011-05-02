@@ -37,7 +37,9 @@ module Galakei
     end
 
     def self.color2hex(color)
-      hex_color = NAMED_COLORS[color] || color.gsub('#','')
+      hex_color = NAMED_COLORS[color] || color.gsub('#','').downcase
+      hex_color = hex_color.sub(/(.)(.)(.)/, '\1\1\2\2\3\3') if hex_color.size == 3
+      hex_color
     end
   end
 end

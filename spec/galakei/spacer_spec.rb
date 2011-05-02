@@ -6,6 +6,7 @@ describe Galakei::Spacer do
     { "#000000" => "000000",
       "black" => "000000",
       "aqua" => "00ffff",
+      "F0d" => "ff00dd",
     }.each do |name, col|
       it "should create correct markup for color #{name}" do
         subject.img_tag(:color => name).should == %Q[<img src='/galakei/spacer/#{col}' width='100%' height='1'>]
