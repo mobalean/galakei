@@ -120,7 +120,7 @@ EOD
     def self.apply(element, property,value)
       color = value.split(/\s/).last.split('#').last
       thickness = value.match(/(\d+)px/)[1]
-      img = Galakei::Spacer.new(color).img_tag(:height => thickness)
+      img = Galakei::Spacer.img_tag(:color => color, :height => thickness)
 
       case property
       when 'border'
