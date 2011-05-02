@@ -223,6 +223,15 @@ EOD
       it_should_behave_like 'border'
     end
 
+    context 'border invalid color' do
+      let(:css) { "div { border: 1px solid #blubb; } "}
+      it "should apply nothing" do
+        elm = subject
+        elm.previous_sibling.to_s.should == ''
+        elm.next_sibling.to_s.should == ''
+      end
+    end
+
     context 'border-top' do
       let(:css) { "div { border-top: 1px solid #000000; } "}
       it_should_behave_like 'border top'

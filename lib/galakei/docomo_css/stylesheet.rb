@@ -131,6 +131,8 @@ EOD
       when 'border-bottom'
         element.after(img)
       end
+    rescue => err
+      Rails.logger.warn("could not insert spacer gif: #{err}")
     end
   end
 end

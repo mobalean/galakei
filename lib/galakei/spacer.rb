@@ -25,7 +25,7 @@ module Galakei
       'black' => '000000' }
 
     def self.create_gif(hex_color)
-      raise "invalid color" unless /[0-9a-f]{6}/i =~ hex_color
+      raise "invalid color '#{hex_color}'" unless /[0-9a-f]{6}/i =~ hex_color
       GIF_DATA_PREFIX + [hex_color].pack('H*') + GIF_DATA_POSTFIX
     end
 
@@ -39,6 +39,7 @@ module Galakei
     def self.color2hex(color)
       hex_color = NAMED_COLORS[color] || color.gsub('#','').downcase
       hex_color = hex_color.sub(/(.)(.)(.)/, '\1\1\2\2\3\3') if hex_color.size == 3
+      raise "invalid color '#{color}'" unless /[0-9a-f]{6}/i =~ hex_color
       hex_color
     end
   end
