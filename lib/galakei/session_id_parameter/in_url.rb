@@ -6,7 +6,7 @@ module Galakei::SessionIdParameter::InUrl
     if session_opts[:id].blank?
       # make sure to reset any active record session store,
       # we'll have to create a new one for the new session
-      request.env[ActiveRecord::SessionStore::SESSION_RECORD_KEY] = nil
+      request.env[ActiveRecord::SessionStore::SESSION_RECORD_KEY] = nil if defined?(ActiveRecord)
       # create a new session ID
       session_opts[:id] = ActiveSupport::SecureRandom.hex(8)
     end
