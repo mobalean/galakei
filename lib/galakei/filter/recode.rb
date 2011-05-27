@@ -7,7 +7,7 @@ class Galakei::Filter::Recode < Galakei::Filter::Base
   end
 
   def condition?
-    request.ssl? && request.au_browser_6?
+    request.ssl? && request.au?
   end
 
   def filter
