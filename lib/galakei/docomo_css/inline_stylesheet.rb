@@ -29,7 +29,6 @@ class Galakei::DocomoCss::InlineStylesheet
   end
 
   def self.path(href)
-    base_path = href.gsub(ActionController::Base.asset_host || '', '').gsub(/\?\d+/,'')
-    File.join(Rails.root, 'public', base_path)
+    File.join(Rails.root, 'public', href.gsub(/\?\d+/,''))
   end
 end

@@ -39,9 +39,6 @@ end
 
 feature 'inlining of css' do
   scenario 'requesting simple page for docomo', :driver => :docomo do
-    parser = CssParser::Parser.new
-    parser.add_block!('span { color: red}') 
-    Galakei::DocomoCss::InlineStylesheet.stub(:parser) { parser }
     visit '/docomo_css/simple'
     find("span")["style"].should == "color: red;"
     page.should_not have_xpath("//link")
