@@ -23,18 +23,13 @@ describe Galakei::DocomoCss::Stylesheet do
       doc.to_s.should == %q{<p>foo</p>}
     end
   end
-  
+
   context "stylesheet with multiple styles" do
     before do
       parser = CssParser::Parser.new
       parser.add_block!(<<-EOD)
-        div {
-          background-color: red;
-        }
-        
-        .alC {
-          text-align: center
-        }
+        div { background-color: red; }
+        .alC { text-align: center }
       EOD
       @stylesheet = described_class.new(parser)
     end
