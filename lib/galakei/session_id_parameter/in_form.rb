@@ -14,7 +14,7 @@ module Galakei::SessionIdParameter::InForm
     session_id = extract_session_id!(url)
     return super if session_id.blank?
     s = super(name, url, html_options)
-    s.sub!("</form>", session_input_tag(session_id) + "</form>".html_safe)
+    s.sub("</form>", session_input_tag(session_id) + "</form>".html_safe).html_safe
   end
 
   private
