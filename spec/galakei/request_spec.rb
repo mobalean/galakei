@@ -16,7 +16,7 @@ end
 
 describe Galakei::Request do
   describe "from Firefox" do
-    before { @request = Rack::Request.new(env_for("Firefox")) }
+    before { @request = Rack::Request.new(env_for_firefox) }
     it_should_behave_like "non-au devices"
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "non-softbank devices"
@@ -24,14 +24,14 @@ describe Galakei::Request do
   end
 
   describe "from Docomo SH-06A" do
-    before { @request = Rack::Request.new(env_for("Docomo SH-06A")) }
+    before { @request = Rack::Request.new(env_for_docomo_1_0) }
     it_should_behave_like "docomo devices"
     it_should_behave_like "non-au devices"
     it_should_behave_like "non-softbank devices"
   end
 
   describe "from AU W51SH" do
-    before { @request = Rack::Request.new(env_for("AU W51SH")) }
+    before { @request = Rack::Request.new(env_for_au_6_2) }
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "non-softbank devices"
     it_should_behave_like "au devices"
@@ -39,22 +39,22 @@ describe Galakei::Request do
   end
 
   describe "from AU W54SH" do
-    before { @request = Rack::Request.new(env_for("AU W54SA")) }
+    before { @request = Rack::Request.new(env_for_au_7_2) }
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "non-softbank devices"
     it_should_behave_like "au devices"
     it("should not be browser 6") { @request.should_not be_au_browser_6 }
   end
 
-  describe "from Vodafone 802N" do
-    before { @request = Rack::Request.new(env_for("Vodafone 802N")) }
+  describe "from Vodafone" do
+    before { @request = Rack::Request.new(env_for_vodafone) }
     it_should_behave_like "non-au devices"
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "softbank devices"
   end
 
   describe "from Softbank 709SC" do
-    before { @request = Rack::Request.new(env_for("Softbank 709SC")) }
+    before { @request = Rack::Request.new(env_for_softbank) }
     it_should_behave_like "non-au devices"
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "softbank devices"
