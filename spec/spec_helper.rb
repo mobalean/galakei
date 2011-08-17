@@ -9,21 +9,26 @@ def env_for_firefox
 end
 
 def env_for_docomo_1_0
-  { "HTTP_USER_AGENT" => "DoCoMo/2.0 SH06A3(c500;TB;W24H14)"  }
+  { "HTTP_USER_AGENT" => "DoCoMo/2.0 SH06A3(c500;TB;W24H14)",
+    "HTTP_X_DCMGUID" => "0000002"  }
 end
 
 def env_for_au_6_2
-  { "HTTP_USER_AGENT" => "KDDI-SH32 UP.Browser/6.2.0.11.2.1 (GUI) MMP/2.0" }
+  { "HTTP_USER_AGENT" => "KDDI-SH32 UP.Browser/6.2.0.11.2.1 (GUI) MMP/2.0",
+    "HTTP_X_UP_SUBNO" => "1234567890_ve.ezweb.ne.jp" }
 end
 
 def env_for_au_7_2
-  { "HTTP_USER_AGENT" => "KDDI-SA3B UP.Browser/6.2_7.2.7.1.K.1.3.101 (GUI) MMP/2.0" }
+  { "HTTP_USER_AGENT" => "KDDI-SA3B UP.Browser/6.2_7.2.7.1.K.1.3.101 (GUI) MMP/2.0", 
+    "HTTP_X_UP_SUBNO" => "1234567890_ve.ezweb.ne.jp" }
 end
 
 def env_for_vodafone
-  { "HTTP_USER_AGENT" => "Vodafone/1.0/V802N/NJ001/SN*************** Browser/UP.Browser/7.0.2.1.307 Profile/MIDP-2.0 Configuration/CLDC-1.1 Ext-J-Profile/JSCL-1.2.2 Ext-V-Profile/VSCL-2.0.0" }
+  { "HTTP_USER_AGENT" => "Vodafone/1.0/V802N/NJ001/SN*************** Browser/UP.Browser/7.0.2.1.307 Profile/MIDP-2.0 Configuration/CLDC-1.1 Ext-J-Profile/JSCL-1.2.2 Ext-V-Profile/VSCL-2.0.0",
+    "HTTP_X_JPHONE_UID" => "11111111msimmsim" }
 end
 
 def env_for_softbank
-  { "HTTP_USER_AGENT" => "SoftBank/1.0/709SC/SCJ001/SN*************** Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1" }
+  { "HTTP_USER_AGENT" => "SoftBank/1.0/709SC/SCJ001/SN*************** Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+    "HTTP_X_JPHONE_UID" => "11111111msimmsim" }
 end 

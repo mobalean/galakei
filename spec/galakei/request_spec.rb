@@ -21,6 +21,7 @@ describe Galakei::Request do
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "non-softbank devices"
     it("should not be galakei") { @request.should_not be_galakei }
+    it { @request.galakei_uid.should be_nil }
   end
 
   describe "from Docomo SH-06A" do
@@ -28,6 +29,7 @@ describe Galakei::Request do
     it_should_behave_like "docomo devices"
     it_should_behave_like "non-au devices"
     it_should_behave_like "non-softbank devices"
+    it { @request.galakei_uid.should == "0000002" }
   end
 
   describe "from AU W51SH" do
@@ -36,6 +38,7 @@ describe Galakei::Request do
     it_should_behave_like "non-softbank devices"
     it_should_behave_like "au devices"
     it("should be browser 6") { @request.should be_au_browser_6 }
+    it { @request.galakei_uid.should == "1234567890_ve.ezweb.ne.jp" }
   end
 
   describe "from AU W54SH" do
@@ -44,6 +47,7 @@ describe Galakei::Request do
     it_should_behave_like "non-softbank devices"
     it_should_behave_like "au devices"
     it("should not be browser 6") { @request.should_not be_au_browser_6 }
+    it { @request.galakei_uid.should == "1234567890_ve.ezweb.ne.jp" }
   end
 
   describe "from Vodafone" do
@@ -51,6 +55,7 @@ describe Galakei::Request do
     it_should_behave_like "non-au devices"
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "softbank devices"
+    it { @request.galakei_uid.should == "11111111msimmsim" }
   end
 
   describe "from Softbank 709SC" do
@@ -58,5 +63,6 @@ describe Galakei::Request do
     it_should_behave_like "non-au devices"
     it_should_behave_like "non-docomo devices"
     it_should_behave_like "softbank devices"
+    it { @request.galakei_uid.should == "11111111msimmsim" }
   end
 end

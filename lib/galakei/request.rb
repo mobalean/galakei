@@ -34,6 +34,16 @@ module Galakei
     def galakei?
       docomo? || au? || softbank?
     end
+
+    def galakei_uid
+      if docomo?
+        env["HTTP_X_DCMGUID"]
+      elsif au?
+        env["HTTP_X_UP_SUBNO"]
+      elsif softbank?
+        env["HTTP_X_JPHONE_UID"]
+      end
+    end
   end
 end
 
