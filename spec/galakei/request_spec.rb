@@ -65,4 +65,9 @@ describe Galakei::Request do
     it_should_behave_like "softbank devices"
     it { subject.galakei_uid.should == "11111111msimmsim" }
   end
+
+  describe "from Docomo HT-03A (android)" do
+    subject { Rack::Request.new("HTTP_USER_AGENT" => "Mozilla/5.0 (Linux; U; Android 1.6; ja-jp; Docomo HT-03A Build/DRD08) AppleWebKit/528.5+ (KHTML, like Gecko) Version/3.1.2 Mobile Safari/525.20.1") }
+    it { should_not be_docomo }
+  end
 end

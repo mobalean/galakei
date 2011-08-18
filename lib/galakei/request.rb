@@ -3,7 +3,7 @@ require "rack/request"
 module Galakei
   module Request
     def docomo?
-      /DoCoMo/i =~ user_agent
+      /^DoCoMo/ =~ user_agent
     end
 
     def au?
