@@ -11,7 +11,7 @@ module Galakei::Email
     /^.+@docomo\.ne\.jp$/ ]
 
   SANITIZE_OPTIONS = { 
-    :elements   => %w{body br a div hr},
+    :elements   => %w{br a div hr},
     :attributes => {'a' => ['href'] },
     :protocols  => {'a' => {'href' => ['http', 'https', 'mailto']}},
     :whitespace_elements => []
@@ -29,7 +29,12 @@ module Galakei::Email
       node.name = "div"
       node.after("<br />")
     end
-    Sanitize.clean(doc.to_s, SANITIZE_OPTIONS)
+
+    res = "<html><head>"
+    res << "<meta http-equiv=\"Content-type\" content=\"text/html;charset=#{doc.meta_encoding}\" />"
+    res << "</head><body>"
+    res << Sanitize.clean(doc.to_s, SANITIZE_OPTIONS)
+    res << "</body></html>"
   end
 
 end
