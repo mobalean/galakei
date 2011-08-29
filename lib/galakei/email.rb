@@ -10,9 +10,8 @@ module Galakei::Email
     /^.+@emnet\.ne\.jp$/,
     /^.+@docomo\.ne\.jp$/ ]
 
-  # these elements will show up on galakei html mails
   SANITIZE_OPTIONS = { 
-    :elements   => %w{br a div hr},
+    :elements   => %w{body br a div hr},
     :attributes => {'a' => ['href'] },
     :protocols  => {'a' => {'href' => ['http', 'https', 'mailto']}},
     :whitespace_elements => []
