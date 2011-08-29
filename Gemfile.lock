@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    galakei (0.8.2)
+    galakei (0.9.0)
       actionpack (>= 3.0.3)
       css_parser
       nokogiri
