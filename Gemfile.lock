@@ -1,11 +1,12 @@
 PATH
   remote: .
   specs:
-    galakei (0.8.1)
+    galakei (0.8.2)
       actionpack (>= 3.0.3)
       css_parser
       nokogiri
       rack (>= 1.2.1)
+      sanitize
 
 GEM
   remote: http://rubygems.org/
@@ -105,6 +106,8 @@ GEM
       railties (~> 3.0)
       rspec (~> 2.5.0)
     rubyzip (0.9.4)
+    sanitize (2.0.3)
+      nokogiri (< 1.6, >= 1.4.4)
     selenium-webdriver (0.1.3)
       childprocess (~> 0.1.5)
       ffi (~> 0.6.3)

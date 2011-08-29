@@ -23,9 +23,9 @@ describe Galakei::Email do
     Galakei::Email.to_galakei_email(html_email).should =~ /^((?!head).)*$/
   end
 
-  it "should have a body" do
-    html_email='<html><head><meta http-equiv="blah" content=""><title>Document X</title><head><body></body></html>'
-    Galakei::Email.to_galakei_email(html_email).should =~ /body/
+  it "should have a html, head, meta and body" do
+    html_email='<html><head><meta http-equiv="Content-type" content="text/html;charset=UTF-8"" ><title>Document X</title><head><body>I am a body!</body></html>'
+    Galakei::Email.to_galakei_email(html_email).should =~ /html.*head.*meta.*body/m
   end
 
   it "should have div,href,br,hr elements" do
