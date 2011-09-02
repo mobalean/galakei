@@ -40,7 +40,7 @@ module Galakei
       def au_utf8_to_sjis(s)
         MAPPING.values.inject(s) do |s, a|
           from = "&##{a[4].to_i(16)};"
-          to = [a[5].to_i(16)].pack("n")
+          to = [a[5].to_i(16)].pack("n").force_encoding("Shift_JIS")
           s.gsub(from, to)
         end
       end
