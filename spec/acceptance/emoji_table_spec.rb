@@ -18,6 +18,11 @@ feature 'emoji table' do
     page.body.should match("\uEF60")
   end
 
+  scenario 'for au SSL', :driver => :au do
+    visit 'https://www.example.com/emoji'
+    page.body.should match([0xF660].pack("n"))
+  end
+
   scenario 'for softbank', :driver => :softbank do
     visit '/emoji'
     page.body.should match("\uE04A")

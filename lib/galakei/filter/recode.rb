@@ -17,6 +17,7 @@ class Galakei::Filter::Recode < Galakei::Filter::Base
     yield
     doc = Nokogiri::HTML(response.body)
     response.body = doc.serialize(:encoding => 'Shift_JIS')
+    response.body = Galakei::EmojiTable.au_utf8_to_sjis(response.body)
     response.charset = "Shift_JIS"
   end
 
