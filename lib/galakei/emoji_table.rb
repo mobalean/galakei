@@ -36,36 +36,37 @@ module Galakei
       :keycap_9 => [ %w[0041 20E3] ] + %w[E6EA E52A E224 F046],
       :keycap_0 => [ %w[0030 20E3] ] + %w[E6EB E52C E225 F047],
     }
-    MAPPING.each do |k,v|
-      MAPPING[k] = v.map do |a| 
+    class << self
+      private
+      def pack_as_unicode(a)
         a = [ a ] if a.is_a?(String)
-        a.map{|s| ("0x" + s).hex}.pack("U*")
+        a.map{|s| ("0x" + s).hex}.pack("U*") 
       end
+    end
+    MAPPING.each do |k,v|
       define_method k do
-        MAPPING[k][@carrier]
+        @table[k]
       end
     end
 
-    def initialize(i)
-      @carrier = i
+    def initialize(table)
+      @table = table
     end
 
     def self.unicode
-      @unicode ||= EmojiTable.new(0)
+      @unicode ||= EmojiTable.new(Hash[MAPPING.map {|k,a| [k, pack_as_unicode(a[0])]}])
     end
 
     def self.docomo
-      @docomo ||= EmojiTable.new(1)
+      @docomo ||= EmojiTable.new(Hash[MAPPING.map {|k,a| [k, pack_as_unicode(a[1])]}])
     end
 
     def self.au
-      @au ||= EmojiTable.new(4)
+      @au ||= EmojiTable.new(Hash[MAPPING.map {|k,a| [k, pack_as_unicode(a[4])]}])
     end
 
-
-
     def self.softbank
-      @softbank ||= EmojiTable.new(3)
+      @softbank ||= EmojiTable.new(Hash[MAPPING.map {|k,a| [k, pack_as_unicode(a[3])]}])
     end
   end
 end
