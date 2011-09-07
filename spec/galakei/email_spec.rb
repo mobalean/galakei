@@ -29,8 +29,13 @@ describe Galakei::Email do
   end
 
   it "should have div,href,br,hr elements" do
-    html_email='<div><a href="http://dragonmobile.nuancemobiledeveloper.com/"><img src="http://www.mobilemonday.jp/wp-content/uploads/2011/01/NMDP.jpg" alt=""></a></div><hr> <br><div class="register_button"><a href="http://gigs.checkin.local:3000/events/2/tickets/new?auth_token=demo">Register</a></div>'
-    Galakei::Email.to_galakei_email(html_email).should =~ /div(.*)href(.*)hr(.*)br/m
+    html_email='<div align="center"><a href="http://dragonmobile.nuancemobiledeveloper.com/"><img src="http://www.mobilemonday.jp/wp-content/uploads/2011/01/NMDP.jpg" alt=""></a></div><hr color="blue"> <br><div class="register_button"><a href="http://gigs.checkin.local:3000/events/2/tickets/new?auth_token=demo">Register</a></div>'
+    Galakei::Email.to_galakei_email(html_email).should =~ /div(.*)align(.*)href(.*)hr(.*)blue(.*)br/m
+  end
+
+  it "should allow font, blink and marquee elements" do
+    html_email='<div align="center"><font size="2" color="red">NEWS FLASH</font><blink>plink plink plink the nineties!</blink><marquee behaviour="scroll">This is corn!</marquee></div>'
+    Galakei::Email.to_galakei_email(html_email).should =~ /font(.*)size(.*)color(.*)blink(.*)marquee(.*)behaviour/m
   end
 
 end
