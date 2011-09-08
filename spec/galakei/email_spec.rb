@@ -5,22 +5,17 @@ describe Galakei::Email do
 
   it "should not have h tags" do
     html_email = '<h1>Email big heading</h1><h2>Second heading</h2><h6>Sixth heading</h6>'
-    Galakei::Email.to_galakei_email(html_email).should =~ /^((?!h[0-9]).)*$/
+    Galakei::Email.to_galakei_email(html_email).should_not =~ /<h[0-9]>/
   end
 
-  it "should not have images" do
-    html_email='<a href="http://dragonmobile.nuancemobiledeveloper.com/"><img src="http://www.mobilemonday.jp/wp-content/uploads/2011/01/NMDP.jpg" alt=""></a>this was an image'
-    Galakei::Email.to_galakei_email(html_email).should =~ /^((?!img).)*$/
+  it "should have images with cid" do
+    html_email='<a href="http://dragonmobile.nuancemobiledeveloper.com/"><img src="cid:image-attachment-id" alt=""/></a>this was an image'
+    Galakei::Email.to_galakei_email(html_email).should =~ /img.*cid/m
   end
 
   it "should not have unsupported protocols" do
-    html_email='<a href="ftp://some.ftpsite.com/">Downloadz youz warez herez</a>'
-    Galakei::Email.to_galakei_email(html_email).should =~ /^((?!ftp).)*$/m
-  end
-
-  it "should not have head elements" do
-    html_email='<html><head><meta http-equiv="blah" content=""><title>Document X</title><head><body></body></html>'
-    Galakei::Email.to_galakei_email(html_email).should =~ /^((?!head).)*$/
+    html_email='<a href="ftp://some.ftpsite.com/">Downloadz youz warez herez</a> Monsieur'
+    Galakei::Email.to_galakei_email(html_email).should_not =~ /ftpsite/
   end
 
   it "should have a html, head, meta and body" do

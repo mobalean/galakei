@@ -11,12 +11,13 @@ module Galakei::Email
     /^.+@docomo\.ne\.jp$/ ]
 
   SANITIZE_OPTIONS = {
-    :elements   => %w{font blink marquee br a div hr},
+    :elements   => %w{font blink marquee br a div hr img},
     :attributes => {'a' => ['href'],
                     'font' => ['size','color'],
                     'marquee' => ['behaviour'],
                     'hr' => ['color'],
                     'div' => ['align'],
+                    'img' => ['src'],
                     },
     :protocols  => {'a' => {'href' => ['http', 'https', 'mailto']}},
     :whitespace_elements => []
