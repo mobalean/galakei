@@ -17,3 +17,4 @@ end
 
 require 'galakei/session_id_parameter/railtie'
 require 'galakei/docomo_css/railtie'
+require 'galakei/email/railtie'

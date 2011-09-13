@@ -1,6 +1,8 @@
 require 'sanitize'
 module Galakei::Email
 
+  autoload :AuMailInterceptor, "galakei/email/au_mail_interceptor"
+
   GALAKEI_EMAIL_ADDRESS_PATTERNS = [
     /^.+@(.+\.)?pdx\.ne\.jp$/,
     /^.+@ezweb\.ne\.jp$/,
@@ -44,3 +46,4 @@ module Galakei::Email
   end
 
 end
+
