@@ -2,3 +2,6 @@
 pkg/*
 log
 .rvmrc
+*.swp
+*~
+TAGS
