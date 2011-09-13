@@ -1,8 +1,3 @@
-if defined?(Rails)
-  require 'galakei/railtie'
-  require 'galakei/engine'
-  require 'galakei/use_rack_request_to_extract_sid'
-end
 require 'galakei/request'
 require 'galakei/docomo_css'
 require 'galakei/session_id_parameter'
@@ -22,4 +17,10 @@ module Galakei
     autoload :Recode, "galakei/filter/recode"
     autoload :Views, "galakei/filter/views"
   end
+end
+
+if defined?(Rails)
+  require 'galakei/railtie'
+  require 'galakei/engine'
+  require 'galakei/use_rack_request_to_extract_sid'
 end
