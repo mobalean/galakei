@@ -10,8 +10,7 @@ class Galakei::Email::AuMailInterceptor
         message.content_type = ["multipart", "alternative", params]
         message.parts.each do |part|
           if part.content_type =~ /^multipart\/alternative/
-            message.add_part(part.text_part)
-            message.add_part(part.html_part)
+            part.parts.each{ |p| message.add_part(p) }
             message.parts.delete(part)
           end
         end
