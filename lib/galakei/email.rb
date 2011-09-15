@@ -37,6 +37,10 @@ module Galakei::Email
       node.name = "div"
       node.after("<br />")
     end
+    #empty the <head>
+    doc.css("head").each do |node|
+      node.unlink
+    end
     encoding = doc.meta_encoding || "UTF-8"
     res = "<html><head>"
     res << "<meta http-equiv=\"Content-type\" content=\"text/html;charset=#{encoding}\" />"

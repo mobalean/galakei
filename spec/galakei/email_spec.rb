@@ -3,8 +3,11 @@ require 'spec_helper'
 
 MSG=<<EOT
 <html>
-<body bgcolor="#FFFF00">
+<head>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title> This is mytitle </title>
+</head>
+<body bgcolor="#FFFF00">
 <h1>A first level heading
 </h1
 <h3>A third level heading
@@ -24,8 +27,10 @@ MSG=<<EOT
 <hr color="#0000FF">
 <div align="center">
 ど真ん中
-<hr color="#FF0000">
 </div>
+<div style="text-align:center;">
+</div>
+<hr color="#FF0000">
 <div align="right">
 右側
 </div>
@@ -65,7 +70,11 @@ describe Galakei::Email do
   end
 
   it "should not have unsupported protocols" do
-      sanitized_mail.should_not =~ /ftpsite/
+    sanitized_mail.should_not =~ /ftpsite/
   end
+
+  it "should not have title" do
+    sanitized_mail.should_not =~ /mytitle/
+  end 
 
 end
