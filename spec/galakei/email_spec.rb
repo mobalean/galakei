@@ -1,36 +1,71 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Galakei::Email do
+MSG=<<EOT
+<html>
+<body bgcolor="#FFFF00">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<h1>A first level heading
+</h1
+<h3>A third level heading
+</h3>
+<blink> A BLINKING TITLE
+</blink>
+        A table
+<table>
+<tr><td>Cell top left</td><td>Cell top right</td></tr>
+<tr><td>Cell bot left</td><td>Cell bot right</td></tr>
+</table>
+<marquee behaviour="scroll"> HELLO mailworld I'm a marquee
+</marquee>
+<div align="left">
+左側
+</div>
+<hr color="#0000FF">
+<div align="center">
+ど真ん中
+<hr color="#FF0000">
+</div>
+<div align="right">
+右側
+</div>
+こんにちは世界！ばあばばばあ
+</body>
+<br/>
+<font size=4 color="#009900">
+GREEEEEEN
+</font>
+<a href="http://dragonmobile.nuancemobiledeveloper.com/"><img src="cid:image-attachment-id" alt=""/></a>this was an image
+<br/>
+And now, <a href="ftp://some.ftpsite.com/">Downloadz youz warez herez!</a>
+</html>
+EOT
 
-  it "should not have h tags" do
-    html_email = '<h1>Email big heading</h1><h2>Second heading</h2><h6>Sixth heading</h6>'
-    Galakei::Email.to_galakei_email(html_email).should_not =~ /<h[0-9]>/
+describe Galakei::Email do
+  let(:sanitized_mail){ Galakei::Email.to_galakei_email(MSG) }
+
+  it "should have a html, head, meta and body" do
+    sanitized_mail.should =~ /html.*head.*meta.*body/m
   end
 
-  it "should have images with cid" do
-    html_email='<a href="http://dragonmobile.nuancemobiledeveloper.com/"><img src="cid:image-attachment-id" alt=""/></a>this was an image'
-    Galakei::Email.to_galakei_email(html_email).should =~ /img.*cid/m
+  it "should have supported tags and styles" do
+    sanitized_mail.should =~ /<div align=/m
+    sanitized_mail.should =~ /<hr color=/m
+    sanitized_mail.should =~ /<font size=.*color=/m
+    sanitized_mail.should =~ /<br>/m
+    sanitized_mail.should =~ /<blink>/m
+    sanitized_mail.should =~ /<marquee behaviour=/m
+    sanitized_mail.should =~ /<img src=.*cid/m
+    sanitized_mail.should =~ /<a href=/m
+  end
+  
+  it "should not have h and table tags" do
+    sanitized_mail.should_not =~ /<h[0-9]>/
+    sanitized_mail.should_not =~ /<table>/
   end
 
   it "should not have unsupported protocols" do
-    html_email='<a href="ftp://some.ftpsite.com/">Downloadz youz warez herez</a> Monsieur'
-    Galakei::Email.to_galakei_email(html_email).should_not =~ /ftpsite/
-  end
-
-  it "should have a html, head, meta and body" do
-    html_email='<html><head><meta http-equiv="Content-type" content="text/html;charset=UTF-8"" ><title>Document X</title><head><body>I am a body!</body></html>'
-    Galakei::Email.to_galakei_email(html_email).should =~ /html.*head.*meta.*body/m
-  end
-
-  it "should have div,href,br,hr elements" do
-    html_email='<div align="center"><a href="http://dragonmobile.nuancemobiledeveloper.com/"><img src="http://www.mobilemonday.jp/wp-content/uploads/2011/01/NMDP.jpg" alt=""></a></div><hr color="blue"> <br><div class="register_button"><a href="http://gigs.checkin.local:3000/events/2/tickets/new?auth_token=demo">Register</a></div>'
-    Galakei::Email.to_galakei_email(html_email).should =~ /div(.*)align(.*)href(.*)hr(.*)blue(.*)br/m
-  end
-
-  it "should allow font, blink and marquee elements" do
-    html_email='<div align="center"><font size="2" color="red">NEWS FLASH</font><blink>plink plink plink the nineties!</blink><marquee behaviour="scroll">This is corn!</marquee></div>'
-    Galakei::Email.to_galakei_email(html_email).should =~ /font(.*)size(.*)color(.*)blink(.*)marquee(.*)behaviour/m
+      sanitized_mail.should_not =~ /ftpsite/
   end
 
 end
