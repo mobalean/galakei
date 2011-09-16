@@ -7,10 +7,6 @@ require 'haml'
 require 'galakei/railtie'
 require 'galakei/engine'
 
-# database
-ActiveRecord::Base.configurations = {'test' => {:adapter => 'sqlite3', :database => ':memory:'}}
-ActiveRecord::Base.establish_connection('test')
-
 # config
 app = Class.new(Rails::Application)
 app.config.root = File.dirname(__FILE__)

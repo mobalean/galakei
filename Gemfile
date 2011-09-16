@@ -8,7 +8,6 @@ group :development, :test do
   gem 'rspec', '>= 2.5.0'
   gem 'capybara'
   gem 'steak'
-  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'haml'
   gem 'css_parser'
