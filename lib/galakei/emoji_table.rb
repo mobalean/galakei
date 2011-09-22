@@ -35,6 +35,7 @@ module Galakei
       :keycap_8 => [ %w[0040 20E3] ] + %w[E6E9 E529 E223 F045 F745],
       :keycap_9 => [ %w[0041 20E3] ] + %w[E6EA E52A E224 F046 F746],
       :keycap_0 => [ %w[0030 20E3] ] + %w[E6EB E52C E225 F047 F747],
+      :camera => %w[1F4F7 E681 E515 E008 EFEE],
     }
     class << self
       def au_utf8_to_sjis(s)
