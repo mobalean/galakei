@@ -8,7 +8,7 @@ feature 'haml' do
   %w[softbank au docomo].each do |s|
     scenario "for #{s}", :driver => s.to_sym do
       visit '/haml'
-      page.body.should include('<br />')
+      page.source.should include('<br />')
       page.should have_css('br')
     end
   end

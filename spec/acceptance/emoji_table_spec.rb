@@ -13,32 +13,32 @@ end
 feature 'emoji table' do
   scenario 'for docomo', :driver => :docomo do
     visit '/emoji'
-    page.body.should match("\uE63E")
+    page.source.should match("\uE63E")
   end
 
   scenario 'for au', :driver => :au do
     visit '/emoji'
-    page.body.should match("\uEF60")
+    page.source.should match("\uEF60")
   end
 
   scenario 'for au SSL', :driver => :au do
     visit 'https://www.example.com/emoji'
-    page.body.should match([0xF660].pack("n").force_encoding("Shift_JIS"))
+    page.source.should match([0xF660].pack("n").force_encoding("Shift_JIS"))
   end
 
   scenario 'for au SSL with unicode source', :driver => :au do
     visit 'https://www.example.com/emoji/with_unicode'
     expected = "テスト".encode("Shift_JIS") + [0xF660].pack("n").force_encoding("Shift_JIS")
-    page.body.should match(expected)
+    page.source.should match(expected)
   end
 
   scenario 'for softbank', :driver => :softbank do
     visit '/emoji'
-    page.body.should match("\uE04A")
+    page.source.should match("\uE04A")
   end
 
   scenario 'for non galakei' do
     visit '/emoji'
-    page.body.should match("\u2600")
+    page.source.should match("\u2600")
   end
 end

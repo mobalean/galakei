@@ -6,7 +6,7 @@ gemspec
 group :development, :test do
   gem 'rails'
   gem 'rspec', '>= 2.5.0'
-  gem 'capybara'
+  gem 'capybara', '~> 1.1.1'
   gem 'steak'
   gem 'rspec-rails'
   gem 'haml'

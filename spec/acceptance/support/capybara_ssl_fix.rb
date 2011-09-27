@@ -1,7 +1,7 @@
 # This makes Capybara work with sites that switch between HTTP and HTTPS
 # See http://github.com/jnicklas/capybara/issues#issue/85
 
-module Capybara::Driver::RackTest::SslFix
+module Capybara::RackTest::Browser::SslFix
 
   [:get, :post, :put, :delete].each do |method|
     define_method method do |*args|
@@ -25,4 +25,4 @@ module Capybara::Driver::RackTest::SslFix
 
 end
 
-Capybara::Driver::RackTest.send :include, Capybara::Driver::RackTest::SslFix
+Capybara::RackTest::Browser.send :include, Capybara::RackTest::Browser::SslFix
