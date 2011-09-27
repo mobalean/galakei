@@ -1,6 +1,5 @@
 module Galakei
   module HelperMethods
-    include ActionView::Helpers::RawOutputHelper
     def self.included(klass)
       klass.helper_method :galakei?
       klass.helper_method :emoji_table
