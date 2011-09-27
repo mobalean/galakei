@@ -1,7 +1,15 @@
 module Galakei::SessionIdParameter::InUrl
+
+  if Rails::VERSION::MINOR == 0
+    ENV_SESSION_OPTIONS_KEY = ActionDispatch::Session::AbstractStore::ENV_SESSION_OPTIONS_KEY
+  else
+    require "rack/session/abstract/id.rb"
+    ENV_SESSION_OPTIONS_KEY = Rack::Session::Abstract::ENV_SESSION_OPTIONS_KEY
+  end
+
   def url_for(options = {})
     return super unless inject_session_id_parameter?(options)
-    session_opts = request.env[ActionDispatch::Session::AbstractStore::ENV_SESSION_OPTIONS_KEY]
+    session_opts = request.env[ENV_SESSION_OPTIONS_KEY]
     # if we don't have a session ID yet, create one
     if session_opts[:id].blank?
       # make sure to reset any active record session store,

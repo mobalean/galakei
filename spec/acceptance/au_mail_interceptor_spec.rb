@@ -18,6 +18,9 @@ class AuMailInterceptorMailer < ActionMailer::Base
     end
   end
 
+  def controller
+    self
+  end
 end
 
 describe 'email' do
