@@ -13,6 +13,7 @@ module Galakei
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
     autoload :Haml, "galakei/filter/haml"
+    autoload :Hankaku, "galakei/filter/hankaku"
     autoload :NonStandardChar, "galakei/filter/non_standard_char"
     autoload :Recode, "galakei/filter/recode"
     autoload :Views, "galakei/filter/views"

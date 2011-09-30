@@ -9,6 +9,7 @@ module Galakei
         before_filter Galakei::Filter::Recode::Params, :if => lambda {|c| Galakei::Filter::Recode.condition?(c) }
         after_filter Galakei::Filter::Recode::Response, :if => lambda {|c| Galakei::Filter::Recode.condition?(c) }
         after_filter Galakei::Filter::NonStandardChar, :if => lambda {|c| Galakei::Filter::NonStandardChar.condition?(c) }
+        after_filter Galakei::Filter::Hankaku, :if => lambda {|c| Galakei::Filter::Hankaku.condition?(c) }
         around_filter Galakei::Filter::Haml, :if => :galakei? if defined?(Haml)
       end
       ActiveSupport.on_load :action_view do

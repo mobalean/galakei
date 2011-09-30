@@ -7,7 +7,7 @@
  * Provide support for 3G handsets from the major 3 carriers in Japan (docomo, au, SoftBank)
  * Avoid modifying Rails internals as much as possible
 
-## Examples
+## Features
 
 ### Inlining Styles
 
@@ -59,6 +59,10 @@ Have a PC site that you want to add galakei templates for? Put your views in app
 ### haml
 
 haml is great for building galakei sites, as it enforces well formed markup. galakei takes care of setting the haml template format for you, so you'll generate xhtml.
+
+### Zenkaku to Hankaku Katakana Conversion
+
+For galakei, zenkaku katakana such as カタカナ will be converted to hankaku like ｶﾀｶﾅ automatically when rendering html. This is standard practice, as zenkaku katakana taxes up too much screen space.
 
 ## Thanks
 

@@ -6,7 +6,7 @@ class EmojiController < ApplicationController
     render :inline => "<%= emoji_table.black_sun_with_rays %>", :layout => true
   end
   def with_unicode
-    render :inline => "テスト<%= emoji_table.black_sun_with_rays %>", :layout => true
+    render :inline => "てすと<%= emoji_table.black_sun_with_rays %>", :layout => true
   end
 end
 
@@ -28,7 +28,7 @@ feature 'emoji table' do
 
   scenario 'for au SSL with unicode source', :driver => :au do
     visit 'https://www.example.com/emoji/with_unicode'
-    expected = "テスト".encode("Shift_JIS") + [0xF660].pack("n").force_encoding("Shift_JIS")
+    expected = "てすと".encode("Shift_JIS") + [0xF660].pack("n").force_encoding("Shift_JIS")
     page.source.should match(expected)
   end
 
