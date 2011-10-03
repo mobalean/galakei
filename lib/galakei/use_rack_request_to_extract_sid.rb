@@ -1,3 +1,6 @@
+if Rails::VERSION::MINOR == 0
+# we only need this patch for Rails 3.0, it is fixed in 3.1
+
 require "action_dispatch/middleware/session/abstract_store"
 
 # Patch the abstract session store to accomplish the following things:
@@ -29,4 +32,6 @@ module ActionDispatch
         end
     end
   end
+end
+
 end
