@@ -29,6 +29,10 @@ EOD
     doc
   end
 
+  def to_s
+    @parsed_stylesheet.to_s
+  end
+
   private
 
   def embed_style(doc, ruleset, selector)
