@@ -2,80 +2,61 @@
 require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 class NonStandardCharController < ApplicationController
-  def middot
-    render :inline => '&middot;'
+  [ 
+    [ "middot", "&middot;"],
+    [ "latin", "\u00B7"],
+    [ "half_entity", "&#xFF65;"],
+    [ "full_entity", "&#x30FB;"],
+    [ "sdot", "&sdot;" ]
+  ].each do |m, s|
+    define_method(m) do
+      render :inline => "'#{s}'"
+    end
   end
+end
 
-  def latin
-    render :inline => "\u00B7"
+shared_examples_for "convert to full dot" do |driver, path|
+  scenario "should convert #{path} for #{driver}", :driver => driver do
+    visit "/non_standard_char/#{path}"
+    page.source =~ /'(.*)'/
+    $1.should == "\u30FB"
   end
+end
 
-  def harf_entity
-    render :inline => "&#xFF65;"
+shared_examples_for "convert to half dot" do |driver, path|
+  scenario "should convert #{path} for #{driver}", :driver => driver do
+    visit "/non_standard_char/#{path}"
+    page.source =~ /'(.*)'/
+    $1.should == "\uFF65"
   end
+end
 
-  def full_entity
-    render :inline => "&#x30FB;"
-  end
-
-  def sdot
-    render :inline => "&sdot;"
+shared_examples_for "no conversion" do |driver, path, original|
+  scenario "should not convert #{path} for #{driver}", :driver => driver do
+    visit "/non_standard_char/#{path}"
+    page.source =~ /'(.*)'/
+    $1.should == original
   end
 end
 
 feature 'nakaguro' do
-  scenario "Do convert &middot for docomo", :driver => :docomo  do
-    visit '/non_standard_char/middot'
-    page.source.should == "\u30FB"
-  end
+  it_should_behave_like "no conversion", :au, :middot, "&middot;"
+  it_should_behave_like "convert to full dot", :docomo, :middot
+  it_should_behave_like "no conversion", :softbank, :middot, "&middot;"
 
-  %w[softbank au].each do |s|
-    scenario "Do not convert &middot for #{s}", :driver => s.to_sym do
-      visit '/non_standard_char/middot'
-      page.source.should == "&middot;"
-    end
-  end
+  it_should_behave_like "convert to half dot", :au, :latin
+  it_should_behave_like "convert to half dot", :docomo, :latin
+  it_should_behave_like "no conversion", :softbank, :latin, "\u00B7"
 
-  %w[au docomo].each do |s|
-    scenario "Do convert latin dot(\u00B7) for #{s}", :driver => s.to_sym  do
-      visit '/non_standard_char/latin'
-      page.source.should == "\uFF65"
-    end
-  end
+  it_should_behave_like "convert to half dot", :au, :half_entity
+  it_should_behave_like "no conversion", :docomo, :half_entity, "&#xFF65;"
+  it_should_behave_like "no conversion", :softbank, :half_entity, "&#xFF65;"
 
-  scenario "Do not convert latin dot(\u00B7) for softbank", :driver => :softbank  do
-    visit '/non_standard_char/latin'
-    page.source.should == "\u00B7"
-  end
+  it_should_behave_like "convert to full dot", :au, :full_entity
+  it_should_behave_like "no conversion", :docomo, :full_entity, "&#x30FB;"
+  it_should_behave_like "no conversion", :softbank, :full_entity, "&#x30FB;"
 
-  %w[softbank docomo].each do |s|
-    scenario "Do not convert &#xFF65 for #{s}", :driver => s.to_sym  do
-      visit '/non_standard_char/harf_entity'
-      page.source.should == "&#xFF65;"
-    end
-  end
-
-  scenario "Do convert &#xFF65 for au", :driver => :au  do
-    visit '/non_standard_char/harf_entity'
-    page.source.should == "\uFF65"
-  end
-
-  %w[docomo softbank].each do |s|
-    scenario "Do not convert &#x30FB for #{s}", :driver => s.to_sym  do
-      visit '/non_standard_char/full_entity'
-      page.source.should == "&#x30FB;"
-    end
-  end
-
-  scenario "Do convert &#x30FB for au", :driver => :au  do
-    visit '/non_standard_char/full_entity'
-    page.source.should == "\u30FB"
-  end
-
-  %w[softbank au docomo].each do |s|
-    scenario "Do convert &sdot; to \uFF65 for #{s}", :driver => s.to_sym  do
-      visit '/non_standard_char/sdot'
-      page.source.should == "\uFF65"
-    end
-  end
+  it_should_behave_like "convert to half dot", :au, :sdot
+  it_should_behave_like "convert to half dot", :docomo, :sdot
+  it_should_behave_like "convert to half dot", :softbank, :sdot
 end
