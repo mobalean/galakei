@@ -23,7 +23,7 @@ class Galakei::DocomoCss::InlineStylesheet
     uri = URI.parse(href)
     if uri.host && uri.scheme && uri.port
       parser.load_uri!(uri)
-    elsif /^\/assets\/(.+)/=~ href
+    elsif /^\/assets\/([^?]+)/=~ href
       asset = Rails.application.assets.find_asset($1)
       if asset
         parser.add_block!(asset.to_s, {:media_types => :all, :base_dir => File.dirname(href)})
