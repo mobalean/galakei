@@ -2,11 +2,14 @@ module Galakei
   class Railtie < ::Rails::Railtie
     config.galakei = ActiveSupport::OrderedOptions.new
     initializer "galakei.extend.action_controller" do |app|
-      filters = %w[Views ContentType Recode NonStandardChar]
-      filters << :Haml if defined?(Haml)
       ActiveSupport.on_load :action_controller do
         include Galakei::HelperMethods
-        filters.each {|f| Galakei::Filter.const_get(f).inject(self) }
+        before_filter Galakei::Filter::Views, :if => :galakei?
+        after_filter Galakei::Filter::ContentType, :if => lambda {|c| Galakei::Filter::ContentType.condition?(c) }
+        before_filter Galakei::Filter::Recode::Params, :if => lambda {|c| Galakei::Filter::Recode.condition?(c) }
+        after_filter Galakei::Filter::Recode::Response, :if => lambda {|c| Galakei::Filter::Recode.condition?(c) }
+        after_filter Galakei::Filter::NonStandardChar, :if => lambda {|c| Galakei::Filter::NonStandardChar.condition?(c) }
+        around_filter Galakei::Filter::Haml, :if => :galakei? if defined?(Haml)
       end
       ActiveSupport.on_load :action_view do
         include Galakei::InputMode

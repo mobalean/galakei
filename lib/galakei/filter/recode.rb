@@ -1,9 +1,8 @@
 # Takes care of recoding pages to Shift-JIS for some handsets when required
 require 'nkf'
 module Galakei::Filter::Recode
-  def self.inject(klass)
-    klass.before_filter Params, :if => lambda {|c| c.request.ssl? && c.request.au? }
-    klass.after_filter Response, :if => lambda {|c| c.request.ssl? && c.request.au? }
+  def self.condition?(c)
+    c.request.ssl? && c.request.au?
   end
 
   class Params < Galakei::Filter::Base
