@@ -20,7 +20,7 @@ shared_examples_for "convert character" do |type, path|
     scenario "should convert #{path} to #{type} for #{driver}", :driver => driver.to_sym do
       visit "/non_standard_char/#{path}"
       page.source =~ /'(.*)'/
-      $1.should == (type == :full ? "\u30FB" : "\uFF65")
+      $1.codepoints.first.should == (type == :full ? 12539 : 65381)
     end
   end
 end
