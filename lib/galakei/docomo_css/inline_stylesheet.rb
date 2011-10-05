@@ -8,6 +8,7 @@ class Galakei::DocomoCss::InlineStylesheet
     doc = Nokogiri::HTML(controller.response.body)
     stylesheets = doc.xpath('//link[@rel="stylesheet"]')
     return if stylesheets.empty?
+    Galakei.logger.info("[galakei] DoCoMo browser 1.0 and external stylesheets detected, inlining CSS")
     stylesheets.each do |e|
       e.unlink
       stylesheet = Galakei::DocomoCss::Stylesheet.new(parser(e['href']))
@@ -24,7 +25,11 @@ class Galakei::DocomoCss::InlineStylesheet
       parser.load_uri!(uri)
     elsif /^\/assets\/(.+)/=~ href
       asset = Rails.application.assets.find_asset($1)
-      parser.add_block!(asset.to_s, {:media_types => :all, :base_dir => File.dirname(href)})
+      if asset
+        parser.add_block!(asset.to_s, {:media_types => :all, :base_dir => File.dirname(href)})
+      else
+        Galakei.logger.warn("[galakei] asset lookup for #{$1} failed, skipping")
+      end
     else
       parser.load_file!(path(href))
     end
