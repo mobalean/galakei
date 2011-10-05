@@ -13,12 +13,9 @@ class Galakei::Filter::NonStandardChar < Galakei::Filter::Base
   def filter
     body = response.body
     full_dot = "\u30FB"
+    body.gsub!(/&middot;|&#x30FB;/, full_dot)
     half_dot = "\uFF65"
-    body.gsub!("&middot;", full_dot) if request.docomo?
-    body.gsub!("\u00B7",   half_dot) unless request.softbank?
-    body.gsub!("&#xFF65;", half_dot) if request.au?
-    body.gsub!("&#x30FB;", full_dot) if request.au?
-    body.gsub!("&sdot;",   half_dot)
+    body.gsub!(/\u00B7|&#xFF65;|&sdot;/, half_dot)
     response.body = body
   end
 end
