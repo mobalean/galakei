@@ -3,20 +3,20 @@ require "rack/request"
 module Galakei
   module Request
     def docomo?
-      /^DoCoMo/ =~ user_agent
+      !! (/^DoCoMo/ =~ user_agent)
     end
 
     def au?
       # doesn't detect some 2G phones, but as they will be discontinued soon, doesn't really matter
-      /KDDI/ =~ user_agent
+      !! (/KDDI/ =~ user_agent)
     end
 
     def softbank?
-      /^(SoftBank|Vodafone)/ =~ user_agent
+      !! (/^(SoftBank|Vodafone)/ =~ user_agent)
     end
 
     def imode_browser_1_0?
-      if /docomo(.*\((.*;)?c(\d+)\;)?/i =~ user_agent
+      if /^DoCoMo(.*\((.*;)?c(\d+)\;)?/ =~ user_agent
         $3.to_i < 500
       else
         false
