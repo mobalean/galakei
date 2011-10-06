@@ -7,7 +7,7 @@ module Galakei::Filter::Recode
 
   class Params < Galakei::Filter::Base
     def filter
-      Galakei.logger.debug("[galakei] AU handset over SSL detected, recoding everything to Shift_JIS")
+      Rails.logger.debug("[galakei] AU handset over SSL detected, recoding everything to Shift_JIS")
       deep_apply(controller.params) do |param|
         NKF.nkf('-Sw', param)
       end

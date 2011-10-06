@@ -24,16 +24,4 @@ if defined?(Rails)
   require 'galakei/railtie'
   require 'galakei/engine'
   require 'galakei/use_rack_request_to_extract_sid'
-
-  module Galakei
-    def self.logger
-      Rails.logger
-    end
-  end
-else
-  module Galakei
-    def self.logger
-      @logger ||= Logger.new(STDERR)
-    end
-  end
 end
