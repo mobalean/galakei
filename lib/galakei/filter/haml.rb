@@ -3,7 +3,7 @@
 class Galakei::Filter::Haml < Galakei::Filter::Base
   def filter
     old_format = ::Haml::Template.options[:format]
-    Galakei.logger.info("[galakei] galakei detected, switching HAML to use :xhtml")
+    Galakei.logger.debug("[galakei] galakei detected, switching HAML to use :xhtml")
     ::Haml::Template.options[:format] = :xhtml
     yield
   ensure

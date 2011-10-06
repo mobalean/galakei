@@ -8,7 +8,7 @@ class Galakei::DocomoCss::InlineStylesheet
     doc = Nokogiri::HTML(controller.response.body)
     stylesheets = doc.xpath('//link[@rel="stylesheet"]')
     return if stylesheets.empty?
-    Galakei.logger.info("[galakei] DoCoMo browser 1.0 and external stylesheets detected, inlining CSS")
+    Galakei.logger.debug("[galakei] DoCoMo browser 1.0 and external stylesheets detected, inlining CSS")
     stylesheets.each do |e|
       e.unlink
       stylesheet = Galakei::DocomoCss::Stylesheet.new(parser(e['href']))

@@ -8,7 +8,7 @@ class Galakei::Filter::ContentType < Galakei::Filter::Base
   end
 
   def filter
-    Galakei.logger.info("[galakei] DoCoMo browser 1.0 and HTML detected, changing content type to application/xhtml+xml")
+    Galakei.logger.debug("[galakei] DoCoMo browser 1.0 and HTML detected, changing content type to application/xhtml+xml")
     response.content_type = 'application/xhtml+xml'
   end
 end
