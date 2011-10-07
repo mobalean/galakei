@@ -1,5 +1,9 @@
+=begin
+Galakei support switching between different input modes (alphabetic, hiragana, hankaku, and numeric). This handles switching between them.
+=end
 module Galakei
   module InputMode
+    # :stopdoc:
     INPUT_MODES = {
       "alphabet" => {
         :docomo_wap_input_format => "en",

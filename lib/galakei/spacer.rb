@@ -1,5 +1,5 @@
 module Galakei
-  module Spacer
+  module Spacer # :nodoc:
 
     GIF_DATA_PREFIX = ['47494638396101000100f70000'].pack('H*')
     GIF_DATA_POSTFIX = ['f'*1530 + '2c000000000100010000080400010404003b'].pack('H*')

@@ -1,6 +1,7 @@
-# Takes care of recoding pages to Shift-JIS for some handsets when required
 require 'nkf'
+# On au SSL pages, only Shift-JIS encoding is supported by some handsets, so pages will be reencoded.
 module Galakei::Filter::Recode
+  # :stopdoc:
   def self.condition?(c)
     c.request.ssl? && c.request.au?
   end

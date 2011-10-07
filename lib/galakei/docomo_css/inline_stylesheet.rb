@@ -2,7 +2,7 @@
 require 'css_parser'
 require 'nokogiri'
 
-class Galakei::DocomoCss::InlineStylesheet
+class Galakei::DocomoCss::InlineStylesheet # :nodoc: all
   def self.filter(controller)
     return unless controller.request.imode_browser_1_0?
     doc = Nokogiri::HTML(controller.response.body)

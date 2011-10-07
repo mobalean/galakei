@@ -9,7 +9,7 @@ module Galakei
   autoload :EmojiTable, "galakei/emoji_table"
   autoload :SessionIdParameterInForm, "galakei/session_id_parameter_in_form"
   autoload :Spacer, "galakei/spacer"
-  module Filter
+  module Filter # :nodoc:
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
     autoload :Haml, "galakei/filter/haml"

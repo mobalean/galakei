@@ -1,5 +1,5 @@
 module Galakei
-  module SessionIdParameter
+  module SessionIdParameter # :nodoc: all
     class Railtie < Rails::Railtie
       config.galakei.session_id_parameter = false
       initializer "galakei.session_id_parameter" do |app|

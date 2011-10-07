@@ -1,7 +1,6 @@
-
 # au-kddi handsets render html mail properly only when 
 # all mime parts are in a flat multipart/alternate structure
-class Galakei::Email::AuMailInterceptor
+class Galakei::Email::AuMailInterceptor # :nodoc:
   def self.delivering_email(message)
 
     if message.to.first =~ /^.+@ezweb\.ne\.jp$/

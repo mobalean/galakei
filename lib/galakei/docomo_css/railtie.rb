@@ -1,4 +1,4 @@
-module Galakei
+module Galakei # :nodoc: all
   module DocomoCss
     class Railtie < Rails::Railtie
       initializer "galakei.docomo_css" do |app|

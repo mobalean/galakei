@@ -3,6 +3,7 @@
 # text/html is used, the content is rendered as the vastly inferior i-mode
 # html (aka CHTML).
 class Galakei::Filter::ContentType < Galakei::Filter::Base
+  # :stopdoc:
   def condition?
     request.docomo? && %r{text/html} =~ response.content_type
   end

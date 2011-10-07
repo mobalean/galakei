@@ -1,4 +1,4 @@
-module Galakei::SessionIdParameter::InUrl
+module Galakei::SessionIdParameter::InUrl # :nodoc:
 
   if Rails::VERSION::MINOR == 0
     ENV_SESSION_OPTIONS_KEY = ActionDispatch::Session::AbstractStore::ENV_SESSION_OPTIONS_KEY

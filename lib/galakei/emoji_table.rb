@@ -1,5 +1,5 @@
 require 'active_support/core_ext/string/output_safety'
-module Galakei
+module Galakei # :nodoc: all
   class EmojiTable
     MAPPING = { 
       :black_sun_with_rays => %w[2600 E63E E488 E04A EF60 F660],

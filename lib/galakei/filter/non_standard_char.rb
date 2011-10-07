@@ -1,5 +1,11 @@
 # coding: utf-8
+=begin
+Each of the following characters has a different unicode values:
+  ⋅··∙・•
+Some are supported on galakei, but others aren't. The correct version will be used.
+=end
 class Galakei::Filter::NonStandardChar < Galakei::Filter::Base
+  # :stopdoc:
   def condition?
     response.content_type =~ %r{text/html|application/xhtml+xml} &&
       (response.charset || Rails.application.config.encoding).downcase == "utf-8"

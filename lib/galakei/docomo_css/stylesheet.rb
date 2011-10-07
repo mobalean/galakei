@@ -1,7 +1,7 @@
 require "css_parser"
 require 'nokogiri'
 
-class Galakei::DocomoCss::Stylesheet
+module Galakei::DocomoCss::Stylesheet # :nodoc: all
   def initialize(parsed_stylesheet)
     @parsed_stylesheet = parsed_stylesheet
   end
@@ -103,7 +103,7 @@ EOD
     end
   end
 
-  class BackGroundAdapter < GenericAdapter
+  class BackGroundAdapter < GenericAdapter 
     def self.apply?(property)
       property == 'background-color'
     end

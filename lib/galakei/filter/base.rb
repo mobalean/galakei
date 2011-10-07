@@ -1,5 +1,5 @@
 module Galakei
-  module Filter
+  module Filter # :nodoc: all
     class Base
       attr_accessor :controller
 

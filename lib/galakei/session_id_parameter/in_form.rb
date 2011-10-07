@@ -1,7 +1,7 @@
 # When making a get request from a form, query string parameters are ignored.
 # Instead, the parameters must be added as hidden fields. This module ensures 
 # that the session id parameter is properly injected into forms.
-module Galakei::SessionIdParameter::InForm
+module Galakei::SessionIdParameter::InForm # :nodoc:
   def extra_tags_for_form(html_options)
     return super unless html_options["method"] == :get
     session_id = extract_session_id!(html_options["action"])
