@@ -4,7 +4,6 @@ module Galakei
       klass.helper_method :galakei?
       klass.helper_method :emoji_table
     end 
-    protected
 
     def galakei?
       request.galakei?
