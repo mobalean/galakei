@@ -8,5 +8,6 @@ RSpec::Core::RakeTask.new
 
 RDoc::Task.new :rdoc do |rdoc|
   rdoc.main = "README.rdoc"
+  rdoc.title = "Galakei RDoc"
   rdoc.rdoc_files.include("README.rdoc", "lib/**/*.rb")
 end

@@ -7,21 +7,9 @@
 * Provide support for 3G handsets from the major 3 carriers in Japan (docomo, au, SoftBank)
 * Avoid modifying Rails internals as much as possible
 
-== Functionality
+== Documentation
 
-=== The Basics
-
-* {Convert to and from Shift-JIS when necessary}[rdoc-ref:Galakei::Filter::Recode]
-* {Correct Content-Type}[rdoc-ref:Galakei::Filter::ContentType]
-* {HTML Email}[rdoc-ref:Galakei::Email]
-* {Inlining of CSS}[rdoc-ref:Galakei::DocomoCss]
-* {Input Mode Switching}[rdoc-ref:Galakei::InputMode]
-* {Maintaining Session}[rdoc-ref:Galakei::SessionIdParameter]
-* {Substitution of Unsupported Characters}[rdoc-ref:Galakei::Filter::NonStandardChar]
-* {Unicode compatible Emoji}[rdoc-ref:Galakei::HelperMethods#emoji_table]
-* {Zenkaku to Hankaku conversion}[rdoc-ref:Galakei::Filter::Hankaku]
-* {galakei specific views}[rdoc-ref:Galakei::Filter::Views]
-* {haml support}[rdoc-ref:Galakei::Filter::Haml]
+See {the rdoc documentation}[http://www.mobalean.com/galakei/].  You can find an overview of the functionality {here}[http://www.mobalean.com/galakei/Galakei.html].
 
 == Thanks
 

@@ -2,6 +2,21 @@ require 'galakei/request'
 require 'galakei/docomo_css'
 require 'galakei/session_id_parameter'
 
+=begin
+=== The Basics
+
+* {Convert to and from Shift-JIS when necessary}[rdoc-ref:Galakei::Filter::Recode]
+* {Correct Content-Type}[rdoc-ref:Galakei::Filter::ContentType]
+* {HTML Email}[rdoc-ref:Galakei::Email]
+* {Inlining of CSS}[rdoc-ref:Galakei::DocomoCss]
+* {Input Mode Switching}[rdoc-ref:Galakei::InputMode]
+* {Maintaining Session}[rdoc-ref:Galakei::SessionIdParameter]
+* {Substitution of Unsupported Characters}[rdoc-ref:Galakei::Filter::NonStandardChar]
+* {Unicode compatible Emoji}[rdoc-ref:Galakei::HelperMethods#emoji_table]
+* {Zenkaku to Hankaku conversion}[rdoc-ref:Galakei::Filter::Hankaku]
+* {galakei specific views}[rdoc-ref:Galakei::Filter::Views]
+* {haml support}[rdoc-ref:Galakei::Filter::Haml]
+=end
 module Galakei
   autoload :Email, "galakei/email"
   autoload :HelperMethods, "galakei/helper_methods"
