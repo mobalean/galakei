@@ -1,7 +1,7 @@
 =begin
-= Inlining Styles
+== Inlining Styles
 
-== Basic Inlining
+=== Basic Inlining
 
 Old docomo handsets {don't support external stylesheets}[http://www.keitai-dev.net/CSS]. Additionally, only very limited CSS is supported. galakei/docomo_css automatically inlines CSS and manipulates markup to overcome these limitations.
 
@@ -14,7 +14,7 @@ Old docomo handsets {don't support external stylesheets}[http://www.keitai-dev.n
  # outputted html
  <div style="background-color: blue;"><h1><span style="color:red;">Foo</span></h1>/div>
 
-== Borders
+=== Borders
 
 Furthermore, the css border property is supported through the "spacer.gif" technique.
 
@@ -30,7 +30,7 @@ Furthermore, the css border property is supported through the "spacer.gif" techn
 
 This will generate a 1px by 1px image, emulating the effect of borders on old docomo handsets.
 =end
-module Galakei::DocomoCss # :nodoc:
+module Galakei::DocomoCss
   autoload :Stylesheet, "galakei/docomo_css/stylesheet"
   autoload :InlineStylesheet, "galakei/docomo_css/inline_stylesheet"
 end

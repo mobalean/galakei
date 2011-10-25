@@ -3,7 +3,7 @@ require 'galakei/docomo_css'
 require 'galakei/session_id_parameter'
 
 =begin
-=== The Basics
+== Functionality
 
 * {Convert to and from Shift-JIS when necessary}[rdoc-ref:Galakei::Filter::Recode]
 * {Correct Content-Type}[rdoc-ref:Galakei::Filter::ContentType]
