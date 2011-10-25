@@ -7,6 +7,6 @@ task :default => :spec
 RSpec::Core::RakeTask.new
 
 RDoc::Task.new :rdoc do |rdoc|
-  rdoc.main = "README.doc"
+  rdoc.main = "README.rdoc"
   rdoc.rdoc_files.include("README.rdoc", "lib/**/*.rb")
 end
