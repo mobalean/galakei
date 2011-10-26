@@ -5,7 +5,7 @@ class InputModeController < ApplicationController
   class User
     extend ActiveModel::Naming
     include ActiveModel::Conversion
-    attr_accessor :hiragana, :hankaku_kana, :alphabet, :number_input_mode, :number_type
+    attr_accessor :hiragana, :hankaku_kana, :alphabet, :number_input_mode, :number, :tel, :url, :email, :date, :month, :week, :color, :datetime, :time
     def persisted?; false end
   end
   def index
@@ -16,38 +16,11 @@ class InputModeController < ApplicationController
         <%= f.text_field :hankaku_kana, :inputmode => "hankaku_kana" %>
         <%= f.text_field :alphabet, :inputmode => "alphabet" %>
         <%= f.text_field :number_input_mode, :inputmode => "number" %>
-        <%= f.text_field :number_type, :type => "number" %>
+        <% %w[ number tel url email datetime date month week color time ].each do |s| %>
+          <%= f.text_field s, :type => s %>
+        <% end %>
       <% end %>
     EOD
-  end
-end
-
-module InputModeMatchers
-  { :hiragana => '-wap-input-format:"*<ja:h>"',
-    :hankaku => '-wap-input-format:"*<ja:hk>"',
-    :alphabetic => '-wap-input-format:"*<ja:en>"',
-    :numeric => '-wap-input-format:"*<ja:n>"'
-  }.each do |mode, style|
-    define_method("be_docomo_#{mode}") { DocomoInputMode.new style }
-  end
-
-  class DocomoInputMode
-    def initialize(expected)
-      @expected = expected
-    end
-
-    def matches?(target)
-      @target = target
-      @target["style"].eql?(@expected)
-    end
-
-    def failure_message_for_should
-      "expected #{@target["style"].inspect} to be #{@expected}"
-    end
-
-    def failure_message_for_should_not
-      "expected #{@target["style"].inspect} not to be #{@expected}"
-    end
   end
 end
 
@@ -59,8 +32,12 @@ feature 'input mode' do
       find("#input_mode_controller_user_hiragana").should be_docomo_hiragana
       find("#input_mode_controller_user_hankaku_kana").should be_docomo_hankaku
       find("#input_mode_controller_user_alphabet").should be_docomo_alphabetic
-      %w[input_mode type].each do |s|
-        page.find("#input_mode_controller_user_number_#{s}").should be_docomo_numeric
+      find("#input_mode_controller_user_number_input_mode").should be_docomo_numeric
+      %w[url email].each do |s|
+        page.find("#input_mode_controller_user_#{s}").should be_docomo_alphabetic
+      end
+      %w[number tel datetime date month week time color].each do |s|
+        page.find("#input_mode_controller_user_#{s}").should be_docomo_numeric
       end
     end
   end
@@ -86,8 +63,8 @@ feature 'input mode' do
         e["mode"].should == 'alphabet'
         e["istyle"].should == '3'
 
-        %w[input_mode type].each do |s|
-          e = page.find("#input_mode_controller_user_number_#{s}")
+        %w[number_input_mode number].each do |s|
+          e = page.find("#input_mode_controller_user_#{s}")
           e["style"].should == '-wap-input-format:*N'
           e["mode"].should == 'numeric'
           e["istyle"].should == '4'

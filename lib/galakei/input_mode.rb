@@ -1,5 +1,10 @@
 =begin
-Galakei support switching between different input modes (alphabetic, hiragana, hankaku, and numeric). This handles switching between them.
+Galakei support switching between different input modes (alphabetic, hiragana, hankaku, and numeric). The input mode will be automatically changed based on the {HTML5 input type}[http://dev.w3.org/html5/spec/Overview.html#attr-input-type]. The following summarizes the mapping:
+
+[alphabetic]  +url+, +email+
+[numeric] +tel+, +datetime+, +date+, +month+, +week+, +time+, +number+, +color+
+
+Additionally, the input mode can be explicitly specified by setting the +inputmode+ attribute to one of +alphabet+, +hiragana+, +hankaku_kana+, or +number+.
 =end
 module Galakei::InputMode
   # :stopdoc:
@@ -34,6 +39,12 @@ module Galakei::InputMode
     if request.galakei?
       inputmode = if options[:type] == "number"
         options.delete(:type)
+      elsif %w[tel date datetime date month week time color].include?(options[:type])
+        options.delete(:type)
+        "number"
+      elsif %w[email url].include?(options[:type])
+        options.delete(:type)
+        "alphabet"
       else
         options.delete(:inputmode)
       end
