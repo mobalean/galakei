@@ -22,19 +22,45 @@ class InputModeController < ApplicationController
   end
 end
 
+module InputModeMatchers
+  { :hiragana => '-wap-input-format:"*<ja:h>"',
+    :hankaku => '-wap-input-format:"*<ja:hk>"',
+    :alphabetic => '-wap-input-format:"*<ja:en>"',
+    :numeric => '-wap-input-format:"*<ja:n>"'
+  }.each do |mode, style|
+    define_method("be_docomo_#{mode}") { DocomoInputMode.new style }
+  end
+
+  class DocomoInputMode
+    def initialize(expected)
+      @expected = expected
+    end
+
+    def matches?(target)
+      @target = target
+      @target["style"].eql?(@expected)
+    end
+
+    def failure_message_for_should
+      "expected #{@target["style"].inspect} to be #{@expected}"
+    end
+
+    def failure_message_for_should_not
+      "expected #{@target["style"].inspect} not to be #{@expected}"
+    end
+  end
+end
+
 feature 'input mode' do
+  include InputModeMatchers
   scenario 'for docomo', :driver => :docomo do
     visit '/input_mode'
     within 'form' do
-      hiragana_input = page.find("#input_mode_controller_user_hiragana")
-      hiragana_input["style"].should == '-wap-input-format:"*<ja:h>"'
-      hankaku_kana_input = page.find("#input_mode_controller_user_hankaku_kana")
-      hankaku_kana_input["style"].should == '-wap-input-format:"*<ja:hk>"'
-      alphabet_input = page.find("#input_mode_controller_user_alphabet")
-      alphabet_input["style"].should == '-wap-input-format:"*<ja:en>"'
+      find("#input_mode_controller_user_hiragana").should be_docomo_hiragana
+      find("#input_mode_controller_user_hankaku_kana").should be_docomo_hankaku
+      find("#input_mode_controller_user_alphabet").should be_docomo_alphabetic
       %w[input_mode type].each do |s|
-        e = page.find("#input_mode_controller_user_number_#{s}")
-        e["style"].should == '-wap-input-format:"*<ja:n>"'
+        page.find("#input_mode_controller_user_number_#{s}").should be_docomo_numeric
       end
     end
   end
