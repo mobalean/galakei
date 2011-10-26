@@ -1,7 +1,7 @@
 require "css_parser"
 require 'nokogiri'
 
-module Galakei::DocomoCss::Stylesheet # :nodoc: all
+class Galakei::DocomoCss::Stylesheet # :nodoc: all
   def initialize(parsed_stylesheet)
     @parsed_stylesheet = parsed_stylesheet
   end
