@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.platform     = Gem::Platform::RUBY
   s.authors      = ["Paul McMahon", "Michael Reinsch", "Yuki Akamatsu"]
   s.email        = "info@mobalean.com"
-  s.homepage     = "http://www.mobalean.com"
+  s.homepage     = "http://galakei.mobalean.com/"
   s.summary      = "Japanese feature phones support"
   s.description  = "Japanese feature phones (a.k.a., keitai, galakei) have a number of restrictions over normal web browsers.  This library adds support for them"
 
