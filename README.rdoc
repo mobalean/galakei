@@ -2,6 +2,8 @@
 
 {Japanese feature phones}[http://www.mobalean.com/en/keitai_web_technology_guide] (a.k.a., keitai, galakei) have a number of restrictions over normal web browsers.  This library adds support for them.
 
+galakeiは簡単にガラケー対応Rails Gem。「Doorkeeper」という{イベント運営}[http://www.doorkeeper.jp]サービスがこのgemを使っている。
+
 == Documentation
 
 See {the galakei site}[http://galakei.mobalean.com/] for more details.
