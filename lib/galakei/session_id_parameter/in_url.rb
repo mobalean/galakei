@@ -24,7 +24,7 @@ module Galakei::SessionIdParameter::InUrl # :nodoc:
   private
 
   def inject_session_id_parameter?(options)
-    return false unless options.is_a?(Hash) && request
+    return false unless options.is_a?(Hash) && self.respond_to?(:request) && request
     return true if request.imode_browser_1_0?
 
     # cookies on older AU handsets using SSL are unreliable
