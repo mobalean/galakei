@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    galakei (0.13.2)
+    galakei (0.13.3)
       actionpack (>= 3.0.3)
       css_parser
       nokogiri
@@ -112,7 +112,7 @@ GEM
       rspec (~> 2.6.0)
     rubyzip (0.9.4)
     sanitize (2.0.3)
-      nokogiri (< 1.6, >= 1.4.4)
+      nokogiri (>= 1.4.4, < 1.6)
     selenium-webdriver (2.7.0)
       childprocess (>= 0.2.1)
       ffi (>= 1.0.7)
@@ -121,7 +121,7 @@ GEM
     sprockets (2.0.0)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (!= 1.3.0, ~> 1.1)
+      tilt (~> 1.1, != 1.3.0)
     steak (2.0.0)
       capybara (>= 1.0.0)
       rspec-rails (>= 2.5.0)
