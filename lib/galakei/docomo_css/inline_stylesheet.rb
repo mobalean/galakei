@@ -21,15 +21,20 @@ class Galakei::DocomoCss::InlineStylesheet # :nodoc: all
   def self.parser(href)
     parser = CssParser::Parser.new
     uri = URI.parse(href)
-    if uri.host && uri.scheme && uri.port
-      parser.load_uri!(uri)
-    elsif /^\/assets\/([^?]+)/=~ href
-      asset = Rails.application.assets.find_asset($1)
+    asset_host = ActionController::Base.asset_host
+    # Hack to handle if asset host is a proc. Call it with nil for all arguments.
+    if asset_host.respond_to?(:call)
+      asset_host = asset_host.call(*asset_host.arity.times.map { nil })
+    end
+    if /(#{asset_host}|^)\/assets\/([^?]+)/ =~ href
+      asset = Rails.application.assets.find_asset($2)
       if asset
         parser.add_block!(asset.to_s, {:media_types => :all, :base_dir => File.dirname(href)})
       else
-        Rails.logger.warn("[galakei] asset lookup for #{$1} failed, skipping")
+        Rails.logger.warn("[galakei] asset lookup for #{$2} failed, skipping")
       end
+    elsif uri.host && uri.scheme && uri.port && uri.host
+      parser.load_uri!(uri)
     else
       parser.load_file!(path(href))
     end

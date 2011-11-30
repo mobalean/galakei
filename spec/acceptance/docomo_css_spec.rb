@@ -27,7 +27,6 @@ class DocomoCssController < ApplicationController
     render :inline => html, :layout => true
   end
 
-
   def japanese
     html = <<-EOD
       <% content_for(:head, stylesheet_link_tag("docomo_css/simple.css")) %>
@@ -50,6 +49,31 @@ feature 'inlining of css' do
     find("span")["style"].should == "color: red;"
     page.should_not have_xpath("//link")
   end
+
+  scenario 'requesting simple page for docomo with asset host', :driver => :docomo do
+    old_asset_host = ActionController::Base.asset_host
+    begin
+      ActionController::Base.asset_host = 'assets.example.com'
+      visit '/docomo_css/simple'
+      find("span")["style"].should == "color: red;"
+      page.should_not have_xpath("//link")
+    ensure
+      ActionController::Base.asset_host = old_asset_host
+    end
+  end
+
+  scenario 'requesting simple page for docomo with proc asset host', :driver => :docomo do
+    old_asset_host = ActionController::Base.asset_host
+    begin
+      ActionController::Base.asset_host = lambda {|scope, req| 'assets.example.com' unless req && req.ssl? }
+      visit '/docomo_css/simple'
+      find("span")["style"].should == "color: red;"
+      page.should_not have_xpath("//link")
+    ensure
+      ActionController::Base.asset_host = old_asset_host
+    end
+  end
+
 
   %w[au softbank docomo_2_0].each do |carrier|
     scenario "requesting simple page for #{carrier}", :driver => carrier.to_sym do
