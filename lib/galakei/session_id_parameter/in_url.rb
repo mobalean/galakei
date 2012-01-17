@@ -16,7 +16,7 @@ module Galakei::SessionIdParameter::InUrl # :nodoc:
       # we'll have to create a new one for the new session
       request.env[ActiveRecord::SessionStore::SESSION_RECORD_KEY] = nil if defined?(ActiveRecord)
       # create a new session ID
-      session_opts[:id] = ActiveSupport::SecureRandom.hex(8)
+      session_opts[:id] = SecureRandom.hex(8)
     end
     super(options.merge(::Rails.application.config.session_options[:key] => session_opts[:id]))
   end
