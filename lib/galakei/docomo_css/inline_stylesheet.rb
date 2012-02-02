@@ -27,11 +27,12 @@ class Galakei::DocomoCss::InlineStylesheet # :nodoc: all
       asset_host = asset_host.call(*asset_host.arity.times.map { nil })
     end
     if /(#{asset_host}|^)\/assets\/([^?]+)/ =~ href
-      asset = Rails.application.assets.find_asset($2)
+      asset_path = $2.sub(/-[0-9a-f]{32}.css$/, '.css')
+      asset = Rails.application.assets.find_asset(asset_path)
       if asset
         parser.add_block!(asset.to_s, {:media_types => :all, :base_dir => File.dirname(href)})
       else
-        Rails.logger.warn("[galakei] asset lookup for #{$2} failed, skipping")
+        Rails.logger.warn("[galakei] asset lookup for #{asset_path} failed, skipping")
       end
     elsif uri.host && uri.scheme && uri.port && uri.host
       parser.load_uri!(uri)
