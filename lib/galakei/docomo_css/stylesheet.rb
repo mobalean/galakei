@@ -12,6 +12,8 @@ class Galakei::DocomoCss::Stylesheet # :nodoc: all
       ruleset.each_selector do |selector, declarations_string, specificity|
         if selector =~ /a:(link|focus|visited)/
           pseudo_styles << "#{selector} { #{declarations_string} }"
+        elsif selector =~ /:/ 
+          Rails.logger.warn("pseudostyle not supported: #{selector}")
         else
           embed_style(doc, ruleset, selector)
         end
