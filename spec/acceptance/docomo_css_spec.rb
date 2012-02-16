@@ -58,6 +58,14 @@ feature 'inlining of css' do
     page.should_not have_xpath("//link")
   end
 
+  scenario 'requesting page with @keyframes', :driver => :docomo do
+    FakeWeb.register_uri(:get, 'http://www.galakei.com/external.css', :body => "@-moz-keyframes { 0% { top: 0; left: 0;} }")
+    visit '/docomo_css/external'
+    page.status_code.should == 200
+    find("span").text.should == "color"
+    page.should_not have_xpath("//link")
+  end
+
   scenario 'requesting simple page for docomo with asset host', :driver => :docomo do
     old_asset_host = ActionController::Base.asset_host
     begin
