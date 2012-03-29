@@ -5,7 +5,7 @@
 class Galakei::Filter::ContentType < Galakei::Filter::Base
   # :stopdoc:
   def condition?
-    request.docomo? && %r{text/html} =~ response.content_type
+    request.docomo? && html_content_type?
   end
 
   def filter

@@ -23,6 +23,14 @@ class NonStandardCharController < ApplicationController
   character :nakaguro_half, "\uFF65"
   character :nakaguro_full, "\u30FB"
   character :sdot, "\u22C5", named: true
+
+  def gif
+    respond_to do |format|
+      format.gif do
+        send_data("\u00B7", :disposition => "inline", :type => :gif)
+      end
+    end
+  end
 end
 
 shared_examples_for "convert character" do |type, path|
@@ -50,4 +58,11 @@ feature 'nakaguro' do
   it_should_behave_like "convert character", :half, :sdot_hex
   it_should_behave_like "convert character", :half, :sdot_dec
   it_should_behave_like "convert character", :half, :sdot_named
+
+  %w[au docomo softbank].each do |driver|
+    scenario "should not convert gif containing matching data for #{driver}", :driver => driver.to_sym do
+      visit "/non_standard_char/gif.gif"
+      page.source.should == "\u00B7"
+    end
+  end
 end

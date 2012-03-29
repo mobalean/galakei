@@ -22,6 +22,7 @@ class RecodeController < ApplicationController
   def create
     self.class.string = params[:string]
   end
+
 end
 
 feature 'recode' do

@@ -40,5 +40,4 @@ feature 'hankaku conversion' do
     visit '/hankaku'
     page.find("#hankaku").text.should == "メインガギ漢字ひらがな"
   end
-
 end

@@ -9,7 +9,7 @@ class Galakei::Filter::Hankaku < Galakei::Filter::Base
   MAPPING = zenkaku.zip(hankaku)
 
   def condition?
-    galakei? && response.content_type =~ %r{text/html|application/xhtml\+xml}
+    galakei? && html_content_type?
   end
 
   def filter

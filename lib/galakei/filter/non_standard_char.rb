@@ -7,8 +7,7 @@ Some are supported on galakei, but others aren't. The correct version will be us
 class Galakei::Filter::NonStandardChar < Galakei::Filter::Base
   # :stopdoc:
   def condition?
-    response.content_type =~ %r{text/html|application/xhtml+xml} &&
-      (response.charset || Rails.application.config.encoding).downcase == "utf-8"
+    html_content_type? && (response.charset || Rails.application.config.encoding).downcase == "utf-8"
   end
 
   def filter

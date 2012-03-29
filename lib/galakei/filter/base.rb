@@ -22,6 +22,10 @@ module Galakei
           super
         end
       end
+
+      def html_content_type?
+        response.content_type =~ %r{text/html|application/xhtml+xml}
+      end
     end
   end
 end
