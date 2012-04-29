@@ -24,6 +24,7 @@ module Galakei
   autoload :EmojiTable, "galakei/emoji_table"
   autoload :SessionIdParameterInForm, "galakei/session_id_parameter_in_form"
   autoload :Spacer, "galakei/spacer"
+  autoload :Lookup, "galakei/lookup"
   module Filter # :nodoc:
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
@@ -31,7 +32,6 @@ module Galakei
     autoload :Hankaku, "galakei/filter/hankaku"
     autoload :NonStandardChar, "galakei/filter/non_standard_char"
     autoload :Recode, "galakei/filter/recode"
-    autoload :Views, "galakei/filter/views"
   end
 end
 
