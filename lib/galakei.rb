@@ -25,6 +25,7 @@ module Galakei
   autoload :SessionIdParameterInForm, "galakei/session_id_parameter_in_form"
   autoload :Spacer, "galakei/spacer"
   autoload :Lookup, "galakei/lookup"
+  autoload :RouteConstraints, "galakei/route_constraints"
   module Filter # :nodoc:
     autoload :Base, "galakei/filter/base"
     autoload :ContentType, "galakei/filter/content_type"
