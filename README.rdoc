@@ -1,6 +1,6 @@
 = Galakei: Japanese feature phone support
 
-[![Build Status](https://secure.travis-ci.org/mobalean/galakei.png?branch=master)](http://travis-ci.org/mobalean/galakei)
+{<img src="https://secure.travis-ci.org/mobalean/galakei.png?branch=master" alt="Build Status" />}[http://travis-ci.org/mobalean/galakei]
 
 {Japanese feature phones}[http://www.mobalean.com/en/keitai_web_technology_guide] (a.k.a., keitai, galakei) have a number of restrictions over normal web browsers.  This library adds support for them.
 
