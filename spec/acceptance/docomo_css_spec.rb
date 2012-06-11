@@ -34,6 +34,13 @@ class DocomoCssController < ApplicationController
     EOD
     render :inline => html, :layout => true
   end
+
+  def google_fonts
+    html = <<-EOD
+      <% content_for(:head, stylesheet_link_tag("https://fonts.googleapis.com/css?family=Lato|Signika")) %>
+    EOD
+    render :inline => html, :layout => true
+  end
 end
 
 feature 'inlining of css' do
@@ -113,5 +120,10 @@ feature 'inlining of css' do
       visit div['src']
       page.body.should include("GIF89a")
     end
+  end
+
+  scenario 'response contains non-ascii', :driver => :docomo do
+    visit '/docomo_css/google_fonts'
+    page.status_code.should == 200
   end
 end

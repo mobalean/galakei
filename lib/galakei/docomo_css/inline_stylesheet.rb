@@ -11,8 +11,8 @@ class Galakei::DocomoCss::InlineStylesheet # :nodoc: all
     Rails.logger.debug("[galakei] DoCoMo browser 1.0 and external stylesheets detected, inlining CSS")
     stylesheets.each do |e|
       e.unlink
-      stylesheet = Galakei::DocomoCss::Stylesheet.new(parser(e['href']))
-      stylesheet.apply(doc)
+      p = parser(e['href'])
+      Galakei::DocomoCss::Stylesheet.new(p).apply(doc) if p
     end
     controller.response.body = doc.to_xhtml(:encoding => doc.encoding)
   end
@@ -40,6 +40,9 @@ class Galakei::DocomoCss::InlineStylesheet # :nodoc: all
       parser.load_file!(path(href))
     end
     return parser
+  rescue URI::InvalidURIError
+    Rails.logger.warn "[galakei] Invalid URI encountered #{href}"
+    nil
   end
 
   def self.path(href)
