@@ -8,7 +8,7 @@ module Galakei
 
     def au?
       # doesn't detect some 2G phones, but as they will be discontinued soon, doesn't really matter
-      !! (/KDDI/ =~ user_agent)
+      !! (/^KDDI-/ =~ user_agent)
     end
 
     def softbank?

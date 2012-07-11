@@ -68,6 +68,11 @@ describe Galakei::Request do
 
   describe "from Docomo HT-03A (android)" do
     subject { Rack::Request.new("HTTP_USER_AGENT" => "Mozilla/5.0 (Linux; U; Android 1.6; ja-jp; Docomo HT-03A Build/DRD08) AppleWebKit/528.5+ (KHTML, like Gecko) Version/3.1.2 Mobile Safari/525.20.1") }
-    it { should_not be_docomo }
+    it { should_not be_galakei }
+  end
+
+  describe "from iPhone FB browser" do
+    subject { Rack::Request.new("HTTP_USER_AGENT" => "Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_1_1 like Mac OS X; ja_JP) AppleWebKit (KHTML, like Gecko) Mobile [FBAN/FBForIPhone;FBAV/4.1.1;FBBV/4110.0;FBDV/iPhone4,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/5.1.1;FBSS/2; FBCR/KDDI;FBID/phone;FBLC/ja_JP;FBSF/2.0]") }
+    it { should_not be_galakei }
   end
 end
