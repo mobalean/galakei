@@ -40,8 +40,10 @@ MSG=<<EOT
 <font size=4 color="#009900">
 GREEEEEEN
 </font>
+<img src="http://someurl.com/someimage.png"/>
 <a href="http://dragonmobile.nuancemobiledeveloper.com/"><img src="cid:image-attachment-id" alt=""/></a>this was an image
 <br/>
+This is <img src="http://someurl.com/someimage.png" alt="someimage"/>...
 And now, <a href="ftp://some.ftpsite.com/">Downloadz youz warez herez!</a>
 </html>
 EOT
@@ -60,13 +62,18 @@ describe Galakei::Email do
     sanitized_mail.should =~ /<br>/m
     sanitized_mail.should =~ /<blink>/m
     sanitized_mail.should =~ /<marquee behaviour=/m
-    sanitized_mail.should =~ /<img src=.*cid/m
     sanitized_mail.should =~ /<a href=/m
   end
   
   it "should not have h and table tags" do
     sanitized_mail.should_not =~ /<h[0-9]>/
     sanitized_mail.should_not =~ /<table>/
+  end
+
+  it "should handle images" do
+    sanitized_mail.should =~ /<img src=.*cid/m
+    sanitized_mail.should_not =~ /<img src=.*http/m
+    sanitized_mail.should match("This is someimage...")
   end
 
   it "should not have unsupported protocols" do
