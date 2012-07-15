@@ -43,7 +43,7 @@ module Galakei::Email
     end
     doc.css("img").each do |node|
       if node['src'] !~ /^cid:/
-        node.after(node['alt']) if node['alt']
+        node.after(doc.create_text_node(node['alt'])) if node['alt'].present?
         node.unlink
       end
     end

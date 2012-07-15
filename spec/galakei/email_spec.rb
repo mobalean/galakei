@@ -43,7 +43,7 @@ GREEEEEEN
 <img src="http://someurl.com/someimage.png"/>
 <a href="http://dragonmobile.nuancemobiledeveloper.com/"><img src="cid:image-attachment-id" alt=""/></a>this was an image
 <br/>
-This is <img src="http://someurl.com/someimage.png" alt="someimage"/>...
+This is <img src="http://someurl.com/someimage.png" alt="イメジー"/>...
 And now, <a href="ftp://some.ftpsite.com/">Downloadz youz warez herez!</a>
 </html>
 EOT
@@ -73,7 +73,7 @@ describe Galakei::Email do
   it "should handle images" do
     sanitized_mail.should =~ /<img src=.*cid/m
     sanitized_mail.should_not =~ /<img src=.*http/m
-    sanitized_mail.should match("This is someimage...")
+    sanitized_mail.should match("This is イメジー...")
   end
 
   it "should not have unsupported protocols" do
