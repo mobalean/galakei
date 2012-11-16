@@ -31,4 +31,6 @@ app.routes.draw do
   match 'galakei/spacer/:color' => 'galakei/spacer#create', :defaults => { :format => :gif } # should be directly using config/routes
   match ':controller(/:action(/:id))'
 end
-class ApplicationController < ActionController::Base; end
+class ApplicationController < ActionController::Base
+  supports_galakei
+end
