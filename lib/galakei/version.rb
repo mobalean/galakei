@@ -1,4 +1,4 @@
 module Galakei
   # The version of Galakei you are using
-  VERSION = "0.14.4"
+  VERSION = "0.15.0"
 end
