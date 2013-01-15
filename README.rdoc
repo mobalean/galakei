@@ -6,10 +6,6 @@
 
 galakeiは簡単にガラケー対応Rails Gem。「Doorkeeper」という {イベント運営}[http://www.doorkeeper.jp] サービスがこのgemを使っている。
 
-== Documentation
-
-See {the galakei site}[http://galakei.mobalean.com/] for more details.
-
 == Thanks
 
 * To {jpmobile}[https://github.com/jpmobile/jpmobile] for offering the most mature Rails plugin for Rails
