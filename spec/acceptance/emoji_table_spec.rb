@@ -21,12 +21,12 @@ feature 'emoji table' do
     page.source.should match("\uEF60")
   end
 
-  scenario 'for au SSL', :driver => :au do
+  pending 'for au SSL', :driver => :au do
     visit 'https://www.example.com/emoji'
     page.source.should match([0xF660].pack("n").force_encoding("Shift_JIS"))
   end
 
-  scenario 'for au SSL with unicode source', :driver => :au do
+  pending 'for au SSL with unicode source', :driver => :au do
     visit 'https://www.example.com/emoji/with_unicode'
     expected = "てすと".encode("Shift_JIS") + [0xF660].pack("n").force_encoding("Shift_JIS")
     page.source.should match(expected)
