@@ -1,5 +1,6 @@
-module Galakei::SessionIdParameter::InUrl # :nodoc:
+require 'action_dispatch/routing/url_for'
 
+ActionDispatch::Routing::UrlFor.class_eval do
   if Rails::VERSION::MINOR == 0
     ENV_SESSION_OPTIONS_KEY = ActionDispatch::Session::AbstractStore::ENV_SESSION_OPTIONS_KEY
   else
@@ -7,8 +8,8 @@ module Galakei::SessionIdParameter::InUrl # :nodoc:
     ENV_SESSION_OPTIONS_KEY = Rack::Session::Abstract::ENV_SESSION_OPTIONS_KEY
   end
 
-  def url_for(options = {})
-    return super unless inject_session_id_parameter?(options)
+  def url_for_with_session_id(options = {})
+    return url_for_without_session_id(options) unless inject_session_id_parameter?(options)
     session_opts = request.env[ENV_SESSION_OPTIONS_KEY]
     # if we don't have a session ID yet, create one
     if session_opts[:id].blank?
@@ -18,8 +19,9 @@ module Galakei::SessionIdParameter::InUrl # :nodoc:
       # create a new session ID
       session_opts[:id] = SecureRandom.hex(8)
     end
-    super(options.merge(::Rails.application.config.session_options[:key] => session_opts[:id]))
+    url_for_without_session_id(options.merge(::Rails.application.config.session_options[:key] => session_opts[:id]))
   end
+  alias_method_chain :url_for, :session_id
 
   private
 

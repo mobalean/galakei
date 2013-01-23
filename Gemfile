@@ -4,7 +4,7 @@ source "http://rubygems.org"
 gemspec
 
 group :development, :test do
-  gem 'rails', '3.2.3'
+  gem 'rails', '3.2.11'
   gem 'rspec', '>= 2.5.0'
   gem 'capybara', '~> 1.1.1'
   gem 'steak'
